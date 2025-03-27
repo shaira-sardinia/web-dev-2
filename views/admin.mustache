@@ -1,0 +1,24 @@
+<html>
+  <body>
+    <div>{{title}}</div>
+
+    {{#workshops}}
+    <div class="workshop-entry">
+      <p>Workshop Name: {{name}}</p>
+      <p>{{description}}</p>
+      <p>{{numOfSessions}} sessions</p>
+      <p>£ {{price}}</p>
+
+      <form action="/delete-workshop/{{courseId}}" method="POST">
+        <button type="submit" class="btn btn-danger">Delete Workshop</button>
+      </form>
+    </div>
+    {{/workshops}} {{^workshops}}
+    <p>No workshops found</p>
+    {{/workshops}}
+
+    <div class="text-right">
+      <a href="/workshop-form" class="btn btn-primary">Add a Workshop</a>
+    </div>
+  </body>
+</html>

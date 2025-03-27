@@ -1,11 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
+<html>
   <body>
-    {{title}}
+    <div>{{title}}</div>
+
+    {{#workshops}}
+    <div class="workshop-entry">
+      <p>Workshop Name: {{name}}</p>
+      <p>{{description}}</p>
+      <p>{{numOfSessions}} sessions</p>
+      <p>£ {{price}}</p>
+
+      <form action="/delete-workshop/{{courseId}}" method="POST">
+        <button type="submit" class="btn btn-danger">Delete Workshop</button>
+      </form>
+    </div>
+    {{/workshops}} {{^workshops}}
+    <p>No workshops found</p>
+    {{/workshops}}
+
+    <div class="text-right">
+      <a href="/new" class="btn btn-primary"> Write in the guestbook </a>
+    </div>
   </body>
 </html>

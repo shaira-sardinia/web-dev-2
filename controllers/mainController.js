@@ -9,3 +9,15 @@ exports.homepage = function (req, res) {
     console.log("Page not loaded", err);
   }
 };
+
+exports.about = function (req, res) {
+  res.render("about", {
+    title: "About Us",
+  });
+};
+
+exports.classes = function (req, res) {
+  res.render("classes", {
+    title: "Classes",
+  });
+};

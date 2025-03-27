@@ -1,0 +1,26 @@
+<html>
+  <body>
+    <div>{{title}}</div>
+    <div>
+      <form action="/workshop-form" method="POST">
+        <div class="mb-3">
+          <label for="workshop-name" class="form-label">Name</label>
+          <input type="text" name="name" class="form-control" id="workshop-name" required />
+        </div>
+        <div class="mb-3">
+          <label for="workshop-desc" class="form-label">Description</label>
+          <textarea class="form-control" id="workshop-desc" name="description" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="num-of-sessions" class="form-label">Number of Sessions</label>
+          <input type="number" class="form-control" id="num-of-sessions" name="numOfSessions" required min="1" />
+        </div>
+        <div class="mb-3">
+          <label for="workshop-price" class="form-label">Price</label>
+          <input type="number" class="form-control" id="workshop-price" name="price" required min="0" step="0.01" />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
