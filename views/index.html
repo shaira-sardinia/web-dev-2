@@ -19,9 +19,15 @@
         </div>
         <div class="mb-3">
           <label for="workshop-desc" class="form-label">Description</label>
-          <textarea class="form-control" id="workshop-desc" name="description" placeholder="Enter workshop description">
-{{#workshop}}{{description}}{{/workshop}} required></textarea
+          <textarea
+            class="form-control"
+            id="workshop-desc"
+            name="description"
+            placeholder="Enter workshop description"
+            required
           >
+          {{#workshop}}{{description}}{{/workshop}}
+          </textarea>
         </div>
         <div class="mb-3">
           <label for="num-of-sessions" class="form-label">Number of Sessions</label>
