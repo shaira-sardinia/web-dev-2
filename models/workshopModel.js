@@ -1,7 +1,7 @@
 const nedb = require("gray-nedb");
 const { v4: uuidv4 } = require("uuid");
 
-class Workshops {
+class WorkshopModel {
   constructor() {
     this.db = new nedb({});
   }
@@ -29,16 +29,28 @@ class Workshops {
 
   getAllWorkshops() {
     return new Promise((resolve, reject) => {
-      this.db
-        .find({}, function (err, workshops) {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(workshops);
-            console.log("function all() returns: ", workshops);
-          }
-        })
-        .sort({ price: 1 });
+      this.db.find({}, function (err, workshops) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(workshops);
+          console.log("function all() returns: ", workshops);
+        }
+      });
+    });
+  }
+
+  findWorkshop(courseId) {
+    return new Promise((resolve, reject) => {
+      this.db.findOne({ courseId: courseId }, (err, entry) => {
+        if (err) {
+          reject(err);
+        } else if (!entry) {
+          reject(new Error("Workshop not found"));
+        } else {
+          resolve(entry);
+        }
+      });
     });
   }
 
@@ -75,6 +87,20 @@ class Workshops {
     });
   }
 
+  findWorkshop(courseId) {
+    return new Promise((resolve, reject) => {
+      this.db.findOne({ courseId: courseId }, (err, entry) => {
+        if (err) {
+          reject(err);
+        } else if (!entry) {
+          reject(new Error("Workshop not found"));
+        } else {
+          resolve(entry);
+        }
+      });
+    });
+  }
+
   updateWorkshop(courseId, updatedData) {
     return new Promise((resolve, reject) => {
       this.db.update(
@@ -100,4 +126,4 @@ class Workshops {
   }
 }
 
-module.exports = Workshops;
+module.exports = WorkshopModel;

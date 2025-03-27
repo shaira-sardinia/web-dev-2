@@ -1,22 +1,18 @@
 const { application, response } = require("express");
-const workshopsDAO = require("../models/workshops");
+const workshopsDAO = require("../models/workshopModel");
 
 const db = new workshopsDAO();
 
 db.init();
 
 exports.admin = function (req, res) {
-  db.getAllWorkshops()
-    .then((list) => {
-      res.render("admin", {
-        title: "Workshops",
-        workshops: list,
-      });
-      console.log("promise resolved");
-    })
-    .catch((err) => {
-      console.log("promise rejected", err);
+  db.getAllWorkshops().then((list) => {
+    res.render("admin", {
+      title: "Workshops",
+      workshops: list,
     });
+    console.log("All Workshops displayed");
+  });
 };
 
 exports.new_workshop_entry = function (req, res) {
@@ -44,9 +40,32 @@ exports.delete_workshop = function (req, res) {
   res.redirect("/admin");
 };
 
+exports.edit_workshop = function (req, res) {
+  console.log("Editing workshop");
+  const courseId = req.params.courseId;
+
+  db.findWorkshop(courseId).then((workshop) => {
+    res.render("workshop-form", {
+      workshop: workshop,
+      isEditing: true,
+      title: "Edit Workshop",
+    });
+  });
+};
+
 exports.update_workshop = function (req, res) {
   console.log("Processing workshop update");
   const courseId = req.params.courseId;
-  db.updateWorkshop(courseId);
-  res.redirect("/admin");
+
+  const updatedData = {
+    name: req.body.name,
+    description: req.body.description,
+    numOfSessions: req.body.numOfSessions,
+    price: req.body.price,
+  };
+
+  db.updateWorkshop(courseId, updatedData).then((numReplaced) => {
+    console.log("Workshop ${{courseId} update successfully");
+    res.redirect("/admin");
+  });
 };

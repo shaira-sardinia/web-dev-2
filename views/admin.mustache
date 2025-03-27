@@ -8,10 +8,15 @@
       <p>{{description}}</p>
       <p>{{numOfSessions}} sessions</p>
       <p>£ {{price}}</p>
+      <div class="workshop-actions">
+        <form action="/edit-workshop/{{courseId}}" method="GET">
+          <button type="submit" class="btn btn-danger">Edit Workshop</button>
+        </form>
 
-      <form action="/delete-workshop/{{courseId}}" method="POST">
-        <button type="submit" class="btn btn-danger">Delete Workshop</button>
-      </form>
+        <form action="/delete-workshop/{{courseId}}" method="POST">
+          <button type="submit" class="btn btn-danger">Delete Workshop</button>
+        </form>
+      </div>
     </div>
     {{/workshops}} {{^workshops}}
     <p>No workshops found</p>
