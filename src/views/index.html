@@ -1,11 +1,58 @@
 <html>
   <body>
-    <div class="error-container">
-      <h1 class="error-title">{{title}}</h1>
-      <p class="error-message">{{errorMessage}}</p>
-      <a href="/" class="home-link">Return to Home</a>
+    <div>{{title}}</div>
 
-      <a href="/" class="back-link">Return to Home</a>
+    <div>
+      {{#workshops}}
+      <div class="workshop-entry">
+        <h3>Workshop Name: {{name}}</h3>
+        <p>{{description}}</p>
+        <p>{{numOfSessions}} sessions</p>
+        <p>£ {{price}}</p>
+        <div class="workshop-actions">
+          <form action="/admin/edit-workshop/{{courseId}}" method="GET">
+            <button type="submit" class="btn btn-danger">Edit Workshop</button>
+          </form>
+
+          <form action="/admin/delete-workshop/{{courseId}}" method="POST">
+            <button type="submit" class="btn btn-danger">Delete Workshop</button>
+          </form>
+        </div>
+      </div>
+      {{/workshops}} {{^workshops}}
+      <p>No workshops found</p>
+      {{/workshops}}
+
+      <div class="text-right">
+        <a href="/admin/new-workshop" class="btn btn-primary">Add a Workshop</a>
+      </div>
+    </div>
+
+    <div>
+      {{#classes}}
+
+      <div class="class-entry">
+        <h3>Class Name: {{name}}</h3>
+        <p>{{description}}</p>
+        <p>{{schedule}}</p>
+        <p>£ {{price}}</p>
+        <div class="class-actions">
+          <form action="/admin/edit-class/{{classId}}" method="GET">
+            <button type="submit" class="btn btn-danger">Edit Class</button>
+          </form>
+
+          <form action="/admin/delete-class/{{classId}}" method="POST">
+            <button type="submit" class="btn btn-danger">Delete Class</button>
+          </form>
+        </div>
+      </div>
+      {{/classes}} {{^classes}}
+      <p>No classes found</p>
+      {{/classes}}
+
+      <div class="text-right">
+        <a href="/admin/new-class" class="btn btn-primary">Add a Class</a>
+      </div>
     </div>
   </body>
 </html>

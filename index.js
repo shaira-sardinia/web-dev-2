@@ -2,7 +2,8 @@ const express = require("express");
 const path = require("path");
 // const public = public.join(__dirname, "public");no
 const bodyParser = require("body-parser");
-const router = require("./src/routes/mainRoutes");
+const mainRouter = require("./src/routes/mainRoutes");
+const adminRouter = require("./src/routes/adminRoutes");
 const errorRoutes = require("./src/routes/errorRoutes");
 
 const app = express();
@@ -16,7 +17,8 @@ app.set("view engine", "mustache");
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use("/", router);
+app.use("/", mainRouter);
+app.use("/admin", adminRouter);
 
 app.use("/css", express.static(__dirname + "/node_modules/bootstrap/dist/css"));
 

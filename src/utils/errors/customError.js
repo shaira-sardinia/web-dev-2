@@ -13,10 +13,4 @@ class DatabaseError extends ThrowError {
   }
 }
 
-class ValidationError extends ThrowError {
-  constructor(msg = "Validation failed", statusCode = 400, data = {}) {
-    super(msg, statusCode, data);
-  }
-}
-
-module.exports = { ThrowError, DatabaseError, ValidationError };
+module.exports = { ThrowError, DatabaseError };

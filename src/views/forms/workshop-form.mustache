@@ -1,9 +1,11 @@
 <html>
   <body>
-    <div>{{title}}</div>
     <div>
+      {{#errors}}
+      <div class="alert alert-danger" role="alert">{{errors}}</div>
+      {{/errors}}
       <form
-        action="{{#isEditing}}/update-workshop/{{workshop.courseId}}{{/isEditing}}{{^isEditing}}/workshop-form{{/isEditing}}"
+        action="{{#isEditing}}/admin/update-workshop/{{courseId}}{{/isEditing}}{{^isEditing}}/admin/new-workshop{{/isEditing}}"
         method="POST"
       >
         <div class="mb-3">
@@ -14,18 +16,12 @@
             class="form-control"
             id="workshop-name"
             value="{{#workshop}}{{name}}{{/workshop}}"
-            required
           />
         </div>
         <div class="mb-3">
           <label for="workshop-desc" class="form-label">Description</label>
-          <textarea
-            class="form-control"
-            id="workshop-desc"
-            name="description"
-            placeholder="Enter workshop description"
-            required
-          >{{#workshop}}{{description}}{{/workshop}}
+          <textarea class="form-control" id="workshop-desc" name="description" placeholder="Enter workshop description">
+{{#workshop}}{{description}}{{/workshop}}
           </textarea>
         </div>
         <div class="mb-3">
@@ -36,7 +32,6 @@
             id="num-of-sessions"
             name="numOfSessions"
             value="{{#workshop}}{{numOfSessions}}{{/workshop}}"
-            required
             min="1"
           />
         </div>
@@ -48,7 +43,6 @@
             id="workshop-price"
             name="price"
             value="{{#workshop}}{{price}}{{/workshop}}"
-            required
             min="0"
             step="0.01"
           />

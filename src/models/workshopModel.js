@@ -1,6 +1,6 @@
 const nedb = require("gray-nedb");
 const { v4: uuidv4 } = require("uuid");
-const ThrowError = require("../utils/errors/customError");
+const { DatabaseError } = require("../utils/errors/customError");
 
 class WorkshopModel {
   constructor() {
@@ -69,7 +69,7 @@ class WorkshopModel {
     return new Promise((resolve, reject) => {
       this.db.insert(entry, (err, entry) => {
         if (err) {
-          const failToAddWorkshop = new ThrowError("Failed to add workshop", 500, {
+          const failToAddWorkshop = new DatabaseError("Failed to add workshop", 500, {
             originalError: err,
           });
           return reject(failToAddWorkshop);
@@ -83,7 +83,7 @@ class WorkshopModel {
     return new Promise((resolve, reject) => {
       this.db.remove({ courseId: courseId }, {}, (err, numRemoved) => {
         if (err) {
-          const failToDeleteWorkshop = new ThrowError("Failed to delete workshop", 500, {
+          const failToDeleteWorkshop = new DatabaseError("Failed to delete workshop", 500, {
             originalError: err,
           });
           return reject(failToDeleteWorkshop);
@@ -92,20 +92,6 @@ class WorkshopModel {
       });
     });
   }
-
-  // findWorkshop(courseId) {
-  //   return new Promise((resolve, reject) => {
-  //     this.db.findOne({ courseId: courseId }, (err, entry) => {
-  //       if (err) {
-  //         reject(err);
-  //       } else if (!entry) {
-  //         reject(new Error("Workshop not found"));
-  //       } else {
-  //         resolve(entry);
-  //       }
-  //     });
-  //   });
-  // }
 
   updateWorkshop(courseId, updatedData) {
     return new Promise((resolve, reject) => {
@@ -125,7 +111,7 @@ class WorkshopModel {
             const failToUpdateWorkshop = new DatabaseError("Failed to update workshop", 500, {
               originalError: err,
             });
-            return reject(databaseError);
+            return reject(failToUpdateWorkshop);
           }
           resolve(numReplaced);
         }
