@@ -14,6 +14,13 @@ const validateClass = [
   body("price").trim().notEmpty().toFloat(),
 ];
 
+const validateOrganiser = [
+  body("name").trim().notEmpty(),
+  body("email").trim().notEmpty(),
+  body("phone").trim().notEmpty().toFloat(),
+  body("bio").trim().notEmpty(),
+];
+
 const validateUser = [];
 
-module.exports = { validateWorkshop, validateClass, validateUser };
+module.exports = { validateWorkshop, validateClass, validateOrganiser, validateUser };

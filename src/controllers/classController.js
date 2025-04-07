@@ -1,28 +1,30 @@
 const { application, response } = require("express");
 const classesDAO = require("../models/classModel");
+const organiserDAO = require("../models/organiserModel");
 const asyncHandler = require("express-async-handler");
 const { validateClass } = require("../utils/middlewares/validation");
 const { handleValidationErrors } = require("../utils/errors/validationError");
 
-const db = new classesDAO();
-
-db.init();
+const classModel = new classesDAO();
+const organiserModel = new organiserDAO();
 
 /* Classes */
 exports.load_classes = asyncHandler(async () => {
-  const list = await db.getAllClasses();
+  const list = await classModel.getAllClasses();
   return list;
 });
 
 exports.new_class_entry = asyncHandler(async (req, res, next) => {
-  res.render("forms/class-form", {});
+  const organisers = await organiserModel.getAllOrganisers();
+  console.log("organisers:", organisers);
+  res.render("forms/class-form", { organisers });
 });
 
 exports.post_class_entry = [
   validateClass,
   handleValidationErrors("forms/class-form"),
   asyncHandler(async (req, res, next) => {
-    await db.addClass(req.body.name, req.body.description, req.body.schedule, req.body.price);
+    await classModel.addClass(req.body.name, req.body.description, req.body.schedule, req.body.price, req.body.orgId);
     //add pop up to say entry is added successfully
     res.redirect("/admin");
   }),
@@ -30,7 +32,7 @@ exports.post_class_entry = [
 
 exports.delete_class = asyncHandler(async (req, res, next) => {
   const classId = req.params.classId;
-  db.deleteClass(classId);
+  classModel.deleteClass(classId);
   console.log(`Class ${classId} deleted successfully`);
   //add pop up here to say successful
   res.redirect("/admin");
@@ -38,12 +40,15 @@ exports.delete_class = asyncHandler(async (req, res, next) => {
 
 exports.edit_class = asyncHandler(async (req, res, next) => {
   const classId = req.params.classId;
+  const organisers = await organiserModel.getAllOrganisers();
+  console.log("organisers:", organisers);
 
-  db.findClass(classId).then((classes) => {
+  classModel.findClass(classId).then((classes) => {
     res.render("forms/class-form", {
       classes: classes,
       isEditing: true,
       classId: classId,
+      organisers: organisers,
       title: "Edit Class",
     });
   });
@@ -61,7 +66,7 @@ exports.update_class = [
       price: req.body.price,
     };
 
-    await db.updateClass(classId, updatedData).then(() => {
+    await classModel.updateClass(classId, updatedData).then(() => {
       console.log(`Class ${classId} update successfully`);
       res.redirect("/admin");
       // add a pop up here to say data updated successfully

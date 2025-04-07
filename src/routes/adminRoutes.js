@@ -3,7 +3,8 @@ const router = express.Router();
 const adminController = require("../controllers/adminController.js");
 const workshopController = require("../controllers/workshopController.js");
 const classController = require("../controllers/classController.js");
-const { validateWorkshop, validateClass } = require("../utils/middlewares/validation");
+const organiserController = require("../controllers/organiserController");
+const { validateWorkshop, validateClass, validateOrganiser } = require("../utils/middlewares/validation");
 const { handleValidationErrors } = require("../utils/errors/validationError.js");
 
 router.get("/", adminController.loadAdminDashboard);
@@ -44,5 +45,28 @@ router.post(
   handleValidationErrors("forms/class-form"),
   classController.update_class
 );
+
+/* Organiser */
+router.get("/new-organiser", organiserController.new_organiser_entry);
+
+router.post(
+  "/new-organiser",
+  validateOrganiser,
+  handleValidationErrors("forms/organiser-form"),
+  organiserController.post_organiser_entry
+);
+
+router.post("/delete-organiser/:orgId", organiserController.delete_organiser);
+
+router.get("/edit-organiser/:orgId", organiserController.edit_organiser);
+
+router.post(
+  "/update-organiser/:orgId",
+  validateOrganiser,
+  handleValidationErrors("forms/organiser-form"),
+  organiserController.update_organiser
+);
+
+router.get("/organiser/:orgId/classes", organiserController.get_organiser_classes);
 
 module.exports = router;

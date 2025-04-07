@@ -47,6 +47,15 @@
             step="0.01"
           />
         </div>
+        <div class="mb-3">
+          <label for="class-organiser" class="form-label">Select an instructor</label>
+          <select name="orgId" id="orgId" required>
+            <option value="">Select someone</option>
+            {{#organisers}}
+            <option value="{{orgId}}">{{name}}</option>
+            {{/organisers}}
+          </select>
+        </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>

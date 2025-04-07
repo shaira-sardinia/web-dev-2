@@ -1,36 +1,14 @@
-const nedb = require("gray-nedb");
 const { v4: uuidv4 } = require("uuid");
+const dbService = require("../utils/database/dbService");
 const { DatabaseError } = require("../utils/errors/customError");
 
+const workshopDb = dbService.getWorkshopDb();
+dbService.seedWorkshops();
+
 class WorkshopModel {
-  constructor() {
-    this.db = new nedb({});
-  }
-
-  // initial seeding
-  init() {
-    this.db.insert({
-      courseId: "001",
-      name: "Workshop 1",
-      description: "This is the first workshop",
-      numOfSessions: "5",
-      price: "250",
-    });
-    console.log("db entry Workshop 1 inserted");
-
-    this.db.insert({
-      courseId: "002",
-      name: "Workshop 2",
-      description: "This is the second workshop",
-      numOfSessions: "12",
-      price: "600",
-    });
-    console.log("db entry Workshop 2 inserted");
-  }
-
   getAllWorkshops() {
     return new Promise((resolve, reject) => {
-      this.db.find({}, function (err, workshops) {
+      workshopDb.find({}, function (err, workshops) {
         if (err) {
           const failToGetWorkshops = new DatabaseError("Failed to retrieve workshops", 500, {
             originalError: err,
@@ -44,7 +22,7 @@ class WorkshopModel {
 
   findWorkshop(courseId) {
     return new Promise((resolve, reject) => {
-      this.db.findOne({ courseId: courseId }, (err, entry) => {
+      workshopDb.findOne({ courseId: courseId }, (err, entry) => {
         if (err) {
           const failToFindWorkshop = new DatabaseError("Failed to retrieve workshop", 500, {
             originalError: err,
@@ -67,7 +45,7 @@ class WorkshopModel {
     console.log("entry created", entry);
 
     return new Promise((resolve, reject) => {
-      this.db.insert(entry, (err, entry) => {
+      workshopDb.insert(entry, (err, entry) => {
         if (err) {
           const failToAddWorkshop = new DatabaseError("Failed to add workshop", 500, {
             originalError: err,
@@ -81,7 +59,7 @@ class WorkshopModel {
 
   deleteWorkshop(courseId) {
     return new Promise((resolve, reject) => {
-      this.db.remove({ courseId: courseId }, {}, (err, numRemoved) => {
+      workshopDb.remove({ courseId: courseId }, {}, (err, numRemoved) => {
         if (err) {
           const failToDeleteWorkshop = new DatabaseError("Failed to delete workshop", 500, {
             originalError: err,
@@ -95,7 +73,7 @@ class WorkshopModel {
 
   updateWorkshop(courseId, updatedData) {
     return new Promise((resolve, reject) => {
-      this.db.update(
+      workshopDb.update(
         { courseId: courseId },
         {
           $set: {

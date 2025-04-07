@@ -1,36 +1,15 @@
-const nedb = require("gray-nedb");
 const { v4: uuidv4 } = require("uuid");
+const dbService = require("../utils/database/dbService");
 const { DatabaseError } = require("../utils/errors/customError");
 
+const classDb = dbService.getClassDb();
+const organiserDb = dbService.getOrganiserDb();
+dbService.seedClasses();
+
 class ClassModel {
-  constructor() {
-    this.db = new nedb({});
-  }
-
-  // initial seeding
-  init() {
-    this.db.insert({
-      classId: "c001",
-      name: "Class 1",
-      description: "This is the first class.",
-      schedule: "Monday",
-      price: "10",
-    });
-    console.log("db entry Class 1 inserted");
-
-    this.db.insert({
-      classId: "c002",
-      name: "Class 2",
-      description: "This is the second class",
-      schedule: "Tuesday",
-      price: "15",
-    });
-    console.log("db entry Class 2 inserted");
-  }
-
   getAllClasses() {
     return new Promise((resolve, reject) => {
-      this.db.find({}, function (err, classes) {
+      classDb.find({}, function (err, classes) {
         if (err) {
           const failToGetClasses = new DatabaseError("Failed to retrieve classes", 500, {
             originalError: err,
@@ -44,7 +23,7 @@ class ClassModel {
 
   findClass(classId) {
     return new Promise((resolve, reject) => {
-      this.db.findOne({ classId: classId }, (err, entry) => {
+      classDb.findOne({ classId: classId }, (err, entry) => {
         if (err) {
           const failToFindClass = new DatabaseError("Failed to retrieve class", 500, {
             originalError: err,
@@ -56,18 +35,19 @@ class ClassModel {
     });
   }
 
-  addClass(name, description, schedule, price) {
+  addClass(name, description, schedule, price, orgId) {
     var entry = {
       classId: uuidv4(),
       name: name,
       description: description,
       schedule: schedule,
       price: price,
+      orgId: orgId,
     };
     console.log("entry created", entry);
 
     return new Promise((resolve, reject) => {
-      this.db.insert(entry, (err, entry) => {
+      classDb.insert(entry, (err, entry) => {
         if (err) {
           const failToAddClass = new DatabaseError("Failed to add class", 500, {
             originalError: err,
@@ -81,7 +61,7 @@ class ClassModel {
 
   deleteClass(classId) {
     return new Promise((resolve, reject) => {
-      this.db.remove({ classId: classId }, {}, (err, numRemoved) => {
+      classDb.remove({ classId: classId }, {}, (err, numRemoved) => {
         if (err) {
           const failToDeleteClass = new DatabaseError("Failed to delete class", 500, {
             originalError: err,
@@ -95,7 +75,7 @@ class ClassModel {
 
   updateClass(classId, updatedData) {
     return new Promise((resolve, reject) => {
-      this.db.update(
+      classDb.update(
         { classId: classId },
         {
           $set: {
@@ -116,6 +96,20 @@ class ClassModel {
           resolve(numReplaced);
         }
       );
+    });
+  }
+
+  getClassesByOrganiser(orgId) {
+    return new Promise((resolve, reject) => {
+      classDb.find({ orgId: orgId }, (err, classes) => {
+        if (err) {
+          const failToFetchClasses = new DatabaseError("Failed to fetch class", 500, {
+            originalError: err,
+          });
+          return reject(failToFetchClasses);
+        }
+        resolve(classes);
+      });
     });
   }
 }

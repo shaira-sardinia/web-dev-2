@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-// const public = public.join(__dirname, "public");no
+// const public = public.join(__dirname, "public");
 const bodyParser = require("body-parser");
 const mainRouter = require("./src/routes/mainRoutes");
 const adminRouter = require("./src/routes/adminRoutes");
@@ -9,8 +9,15 @@ const errorRoutes = require("./src/routes/errorRoutes");
 const app = express();
 
 const mustache = require("mustache-express");
+
 app.engine("mustache", mustache());
+
+app.set("view options", {
+  partials: path.join(__dirname, "src", "views", "layouts"),
+});
+
 app.set("views", path.join(__dirname, "src", "views"));
+
 app.set("view engine", "mustache");
 
 // app.use(express.static(public));
