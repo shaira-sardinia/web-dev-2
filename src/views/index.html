@@ -9,7 +9,7 @@
         <p>{{description}}</p>
         <p>{{numOfSessions}} sessions</p>
         <p>£ {{price}}</p>
-        <p>Instructor: {{organisers}}</p>
+        <p>Instructor: {{#organiser}}{{name}}{{/organiser}}</p>
         <div class="workshop-actions">
           <form action="/admin/edit-workshop/{{courseId}}" method="GET">
             <button type="submit" class="btn btn-danger">Edit Workshop</button>
@@ -37,7 +37,7 @@
         <p>{{description}}</p>
         <p>{{schedule}}</p>
         <p>£ {{price}}</p>
-        <p>Instructor: {{organisers}}</p>
+        <p>Instructor: {{#organiser}}{{name}}{{/organiser}}</p>
         <div class="class-actions">
           <form action="/admin/edit-class/{{classId}}" method="GET">
             <button type="submit" class="btn btn-danger">Edit Class</button>

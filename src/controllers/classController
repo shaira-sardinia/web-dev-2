@@ -16,7 +16,6 @@ exports.load_classes = asyncHandler(async () => {
 
 exports.new_class_entry = asyncHandler(async (req, res, next) => {
   const organisers = await organiserModel.getAllOrganisers();
-  console.log("organisers:", organisers);
   res.render("forms/class-form", { organisers });
 });
 
@@ -40,8 +39,16 @@ exports.delete_class = asyncHandler(async (req, res, next) => {
 
 exports.edit_class = asyncHandler(async (req, res, next) => {
   const classId = req.params.classId;
+  const classData = await classModel.findClass(classId);
   const organisers = await organiserModel.getAllOrganisers();
-  console.log("organisers:", organisers);
+
+  if (classData && classData.orgId) {
+    organisers.forEach((org) => {
+      if (classData.orgId === org.orgId) {
+        org.selected = true;
+      }
+    });
+  }
 
   classModel.findClass(classId).then((classes) => {
     res.render("forms/class-form", {
@@ -59,11 +66,13 @@ exports.update_class = [
   handleValidationErrors("forms/class-form"),
   asyncHandler(async (req, res, next) => {
     const classId = req.params.classId;
+
     const updatedData = {
       name: req.body.name,
       description: req.body.description,
       schedule: req.body.schedule,
       price: req.body.price,
+      orgId: req.body.orgId,
     };
 
     await classModel.updateClass(classId, updatedData).then(() => {

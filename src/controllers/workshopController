@@ -47,8 +47,16 @@ exports.delete_workshop = asyncHandler(async (req, res, next) => {
 
 exports.edit_workshop = asyncHandler(async (req, res, next) => {
   const courseId = req.params.courseId;
+  const workshopData = await workshopModel.findWorkshop(courseId);
   const organisers = await organiserModel.getAllOrganisers();
-  console.log("organisers:", organisers);
+
+  if (workshopData && workshopData.orgId) {
+    organisers.forEach((org) => {
+      if (workshopData.orgId === org.orgId) {
+        org.selected = true;
+      }
+    });
+  }
 
   workshopModel.findWorkshop(courseId).then((workshop) => {
     res.render("forms/workshop-form", {
@@ -66,11 +74,13 @@ exports.update_workshop = [
   handleValidationErrors("forms/workshop-form"),
   asyncHandler(async (req, res, next) => {
     const courseId = req.params.courseId;
+
     const updatedData = {
       name: req.body.name,
       description: req.body.description,
       numOfSessions: req.body.numOfSessions,
       price: req.body.price,
+      orgId: req.body.orgId,
     };
 
     await workshopModel.updateWorkshop(courseId, updatedData).then(() => {

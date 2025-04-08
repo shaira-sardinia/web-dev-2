@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const adminController = require("../controllers/adminController.js");
-const workshopController = require("../controllers/workshopController.js");
-const classController = require("../controllers/classController.js");
+const adminController = require("../controllers/adminController");
+const workshopController = require("../controllers/workshopController");
+const classController = require("../controllers/classController");
 const organiserController = require("../controllers/organiserController");
 const { validateWorkshop, validateClass, validateOrganiser } = require("../utils/middlewares/validation");
-const { handleValidationErrors } = require("../utils/errors/validationError.js");
+const { handleValidationErrors } = require("../utils/errors/validationError");
 
 router.get("/", adminController.loadAdminDashboard);
 
