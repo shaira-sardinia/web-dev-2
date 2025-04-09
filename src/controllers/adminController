@@ -15,6 +15,5 @@ exports.loadAdminDashboard = asyncHandler(async (req, res, next) => {
     workshops: workshops,
     classes: classes,
     organisers: organisers,
-    layout: "layouts/main",
   });
 });

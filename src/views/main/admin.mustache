@@ -1,5 +1,15 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
   <body>
+    {{> authHeader }}
+
     <div>{{title}}</div>
 
     <div>
@@ -98,5 +108,8 @@
         </tbody>
       </table>
     </div>
+
+    {{> footer }}
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

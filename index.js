@@ -8,17 +8,12 @@ const errorRoutes = require("./src/routes/errorRoutes");
 const mustache = require("mustache-express");
 const app = express();
 
-app.engine("mustache", mustache());
+app.engine("mustache", mustache(path.join(__dirname, "src/views/partials"), ".mustache"));
 app.set("view engine", "mustache");
-app.set("views", path.join(__dirname, "src", "views"));
-app.set("view options", {
-  partials: path.join(__dirname, "src", "views", "layouts"),
-});
+app.set("views", path.join(__dirname, "src/views"));
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/node_modules", express.static(path.join(__dirname, "node_modules")));
-
-app.use(express.static(public));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 

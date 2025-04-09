@@ -4,13 +4,11 @@ const asyncHandler = require("express-async-handler");
 exports.homepage = asyncHandler(async (req, res, next) => {
   res.render("main/homepage", {
     title: "Home Page",
-    layout: "layouts/main",
   });
 });
 
 exports.about = asyncHandler(async (req, res, next) => {
   res.render("main/about", {
     title: "Home Page",
-    layout: "layouts/main",
   });
 });
