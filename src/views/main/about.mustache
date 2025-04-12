@@ -8,7 +8,12 @@
     <link href="/css/style.css" rel="stylesheet" />
   </head>
   <body>
-    {{> header }}
+    {{#user}}
+        {{> authHeader }}
+    {{/user}}
+    {{^user}}
+       {{> header }}
+    {{/user}}
 
     <main class="container py-6">
       <div class="row">

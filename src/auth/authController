@@ -23,7 +23,13 @@ exports.login = asyncHandler(async (req, res, next) => {
     throw new AuthenticationError("Invalid email or password.", 401);
   }
 
-  let payload = { email: user.email, userId: user.userId, name: user.name };
+  let payload = {
+    email: user.email,
+    userId: user.userId,
+    name: user.name,
+    role: user.role || "user",
+  };
+
   let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
   res.cookie("jwt", accessToken);
 
@@ -47,6 +53,19 @@ exports.verify = asyncHandler(async (req, res, next) => {
     throw new AuthenticationError("Your session has expired. Please log in again.");
   }
 });
+
+exports.checkRole = (roles) => {
+  return (req, res, next) => {
+    if (!req.user) {
+      throw new AuthenticationError("Please log in to access this page.", 401);
+    }
+
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).render("error", { message: "Access forbidden", error: { status: 403, stack: "" } });
+    }
+    next();
+  };
+};
 
 exports.logout = asyncHandler(async (req, res, next) => {
   res.clearCookie("jwt").status(200).redirect("/");

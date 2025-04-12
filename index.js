@@ -6,6 +6,7 @@ const mainRouter = require("./src/routes/mainRoutes");
 const adminRouter = require("./src/routes/adminRoutes");
 const authRouter = require("./src/routes/userRoutes.js");
 const errorRoutes = require("./src/routes/errorRoutes");
+const displayAdmin = require("./src/utils/middlewares/displayAdmin");
 const mustache = require("mustache-express");
 const cookieParser = require("cookie-parser");
 const app = express();
@@ -23,10 +24,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 
+app.use(displayAdmin.setAdminFlag);
+
 app.use("/", mainRouter);
 app.use("/admin", adminRouter);
 app.use("/", authRouter);
-
 app.use(errorRoutes);
 
 app.listen(3000, () => {

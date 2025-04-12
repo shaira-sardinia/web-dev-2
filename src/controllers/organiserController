@@ -24,7 +24,7 @@ exports.post_organiser_entry = [
   asyncHandler(async (req, res, next) => {
     await organiserModel.addOrganiser(req.body.name, req.body.email, req.body.phone, req.body.bio);
     //add pop up to say entry is added successfully
-    res.redirect("/admin");
+    res.redirect("/dashboard");
   }),
 ];
 
@@ -33,7 +33,7 @@ exports.delete_organiser = asyncHandler(async (req, res, next) => {
   organiserModel.deleteOrganiser(orgId);
   console.log(`Organiser  ${orgId} deleted successfully`);
   //add pop up here to say successful
-  res.redirect("/admin");
+  res.redirect("/dashboard");
 });
 
 exports.edit_organiser = asyncHandler(async (req, res, next) => {
@@ -63,7 +63,7 @@ exports.update_organiser = [
 
     await organiserModel.updateOrganiser(orgId, updatedData).then(() => {
       console.log(`Organiser ${orgId} update successfully`);
-      res.redirect("/admin");
+      res.redirect("/dashboard");
       // add a pop up here to say data updated successfully
     });
   }),

@@ -4,7 +4,7 @@ const { DatabaseError } = require("../utils/errors/customError");
 
 const workshopDb = dbService.getWorkshopDb();
 const organiserDb = dbService.getOrganiserDb();
-dbService.seedWorkshops();
+// dbService.seedWorkshops();
 
 class WorkshopModel {
   getAllWorkshops() {

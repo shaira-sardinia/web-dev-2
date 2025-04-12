@@ -25,7 +25,7 @@ exports.post_class_entry = [
   asyncHandler(async (req, res, next) => {
     await classModel.addClass(req.body.name, req.body.description, req.body.schedule, req.body.price, req.body.orgId);
     //add pop up to say entry is added successfully
-    res.redirect("/admin");
+    res.redirect("/dashboard");
   }),
 ];
 
@@ -34,7 +34,7 @@ exports.delete_class = asyncHandler(async (req, res, next) => {
   classModel.deleteClass(classId);
   console.log(`Class ${classId} deleted successfully`);
   //add pop up here to say successful
-  res.redirect("/admin");
+  res.redirect("/dashboard");
 });
 
 exports.edit_class = asyncHandler(async (req, res, next) => {
@@ -77,7 +77,7 @@ exports.update_class = [
 
     await classModel.updateClass(classId, updatedData).then(() => {
       console.log(`Class ${classId} update successfully`);
-      res.redirect("/admin");
+      res.redirect("/dashboard");
       // add a pop up here to say data updated successfully
     });
   }),

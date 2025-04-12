@@ -32,7 +32,7 @@ exports.post_workshop_entry = [
       req.body.orgId
     );
     //add pop up to say entry is added successfully
-    res.redirect("/admin");
+    res.redirect("/dashboard");
   }),
 ];
 
@@ -42,7 +42,7 @@ exports.delete_workshop = asyncHandler(async (req, res, next) => {
   workshopModel.deleteWorkshop(courseId);
   console.log(`Workshop ${courseId} deleted successfully`);
   //add pop up here to say successful
-  res.redirect("/admin");
+  res.redirect("/dashboard");
 });
 
 exports.edit_workshop = asyncHandler(async (req, res, next) => {
@@ -85,7 +85,7 @@ exports.update_workshop = [
 
     await workshopModel.updateWorkshop(courseId, updatedData).then(() => {
       console.log(`Workshop ${courseId} update successfully`);
-      res.redirect("/admin");
+      res.redirect("/dashboard");
       // add a pop up here to say data updated successfully
     });
   }),

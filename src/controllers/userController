@@ -2,6 +2,9 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const userDAO = require("../models/userModel");
 const asyncHandler = require("express-async-handler");
+const workshopController = require("./workshopController");
+const classController = require("./classController");
+const organiserController = require("./organiserController");
 const { verify } = require("../auth/authController");
 
 const userModel = new userDAO();
@@ -26,12 +29,31 @@ exports.show_login_page = asyncHandler(async (req, res, next) => {
 });
 
 exports.show_dashboard = [
-  verify,
   asyncHandler(async (req, res, next) => {
-    console.log("user:", req.user.name);
-    res.render("main/dashboard", {
-      title: "Dashboard",
-      user: req.user.name,
-    });
+    const loadWorkshops = workshopController.load_workshops();
+    const loadClasses = classController.load_classes();
+    const loadOrganisers = organiserController.load_organisers();
+
+    const [workshops, classes, organisers] = await Promise.all([loadWorkshops, loadClasses, loadOrganisers]);
+
+    const role = req.user.role;
+    console.log("Logged in as:", role);
+
+    if (role == "user") {
+      res.render("main/dashboard", {
+        title: "Dashboard",
+        user: req.user.name,
+      });
+    } else if (role == "admin") {
+      res.render("main/admin", {
+        title: "Admin Dashboard",
+        workshops: workshops,
+        classes: classes,
+        organisers: organisers,
+        user: req.user.name,
+      });
+    } else {
+      throw new ThrowError("Something went wrong.", 401);
+    }
   }),
 ];

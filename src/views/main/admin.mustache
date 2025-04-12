@@ -8,7 +8,12 @@
     <link href="/css/style.css" rel="stylesheet" />
   </head>
   <body>
-    {{> authHeader }}
+    {{#user}}
+        {{> authHeader }}
+    {{/user}}
+    {{^user}}
+       {{> header }}
+    {{/user}}
 
     <div>{{title}}</div>
 

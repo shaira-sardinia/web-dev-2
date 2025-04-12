@@ -3,7 +3,7 @@ const dbService = require("../utils/database/dbService");
 const { DatabaseError } = require("../utils/errors/customError");
 
 const organiserDb = dbService.getOrganiserDb();
-dbService.seedOrganisers();
+// dbService.seedOrganisers();
 
 class OrganiserModel {
   getAllOrganisers() {
@@ -34,13 +34,14 @@ class OrganiserModel {
     });
   }
 
-  addOrganiser(name, email, phone, bio) {
+  addOrganiser(name, email, phone, bio, role) {
     var entry = {
       orgId: uuidv4(),
       name: name,
       email: email,
       phone: phone,
       bio: bio,
+      role: role,
     };
     console.log("entry created", entry);
 
