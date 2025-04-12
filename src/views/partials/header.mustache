@@ -1,4 +1,4 @@
-  <div>
+<div>
   <ul class="nav justify-content-end">
     <li class="nav-item">
       <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -14,9 +14,11 @@
         >Join Us</a
       >
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Login</a></li>
-        <li><a class="dropdown-item" href="#"> Register</a></li>
+        {{^user}}
+        <li><a id="login" href="/login" class="dropdown-item" href="#">Login</a></li>
+        <li><a id="login" href="/register" class="dropdown-item" href="#"> Register</a></li>
+        {{/user}}
       </ul>
     </li>
   </ul>
-  </div>
+</div>

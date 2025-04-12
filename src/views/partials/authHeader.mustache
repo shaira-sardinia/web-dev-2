@@ -1,16 +1,18 @@
 <div>
   <ul class="nav justify-content-end">
     <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="#">Home</a>
+      <a class="nav-link active" aria-current="page" href="/">Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Dashboard</a>
+      <a class="nav-link" href="/dashboard">Dashboard</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Who Are We</a>
+      <a class="nav-link" href="/about">Who Are We</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Log Out</a>
+      {{#user}}
+      <a class="nav-link" href="/logout">Log Out</a>
+      {{/user}}
     </li>
   </ul>
 </div>

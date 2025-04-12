@@ -21,6 +21,14 @@ const validateOrganiser = [
   body("bio").trim().notEmpty(),
 ];
 
-const validateUser = [];
+const validateUser = [
+  body("email").trim().notEmpty(),
+  body("password").trim().notEmpty(),
+  body("name").trim().notEmpty(),
+  body("phone").trim().notEmpty().toFloat(),
+  body("address").trim().notEmpty(),
+];
 
-module.exports = { validateWorkshop, validateClass, validateOrganiser, validateUser };
+const validateLogin = [body("email").trim().notEmpty(), body("password").trim().notEmpty()];
+
+module.exports = { validateWorkshop, validateClass, validateOrganiser, validateUser, validateLogin };

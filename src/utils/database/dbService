@@ -4,6 +4,7 @@ const path = require("path");
 let organiserDb = null;
 let workshopDb = null;
 let classDb = null;
+let userDb = null;
 
 const dbService = {
   getOrganiserDb() {
@@ -35,6 +36,16 @@ const dbService = {
       });
     }
     return classDb;
+  },
+
+  getUserDb() {
+    if (!userDb) {
+      userDb = new nedb({
+        filename: path.join(__dirname, "../../../data/users.db"),
+        autoload: true,
+      });
+    }
+    return userDb;
   },
 
   seedOrganisers() {
@@ -138,6 +149,18 @@ const dbService = {
     //   orgId: "",
     // });
     // console.log("db entry Class w003 inserted");
+  },
+
+  seedUsers() {
+    userDb.insert({
+      userId: "1",
+      email: "peter@parker.com",
+      password: "$2b$10$bnEYkqZM.MhEF/LycycymOeVwkQONq8kuAUGx6G5tF9UtUcaYDs3S",
+      name: "Peter Parker",
+      phone: "098765432",
+      address: "123 Highway St Florida",
+    });
+    console.log("db entry user 1 inserted");
   },
 };
 

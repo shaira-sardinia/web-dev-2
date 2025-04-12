@@ -20,6 +20,11 @@ router.use(function (err, req, res, next) {
   }
   console.error("--- ERROR END ---");
 
+  if (err.name === "AuthenticationError") {
+    // show error here
+    return res.redirect("/login");
+  }
+
   const statusCode = err.statusCode || 500;
 
   res.status(statusCode).render("errors/error", {

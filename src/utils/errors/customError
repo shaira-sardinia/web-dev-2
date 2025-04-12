@@ -13,4 +13,10 @@ class DatabaseError extends ThrowError {
   }
 }
 
-module.exports = { ThrowError, DatabaseError };
+class AuthenticationError extends ThrowError {
+  constructor(msg = "Authentication Error") {
+    super(msg, 403);
+  }
+}
+
+module.exports = { ThrowError, DatabaseError, AuthenticationError };

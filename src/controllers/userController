@@ -1,0 +1,37 @@
+const express = require("express");
+const bcrypt = require("bcrypt");
+const userDAO = require("../models/userModel");
+const asyncHandler = require("express-async-handler");
+const { verify } = require("../auth/authController");
+
+const userModel = new userDAO();
+
+exports.show_register_page = asyncHandler(async (req, res, next) => {
+  res.render("auth/register", { title: "Register" });
+});
+
+exports.post_new_user = [
+  asyncHandler(async (req, res, next) => {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    await userModel.addUser(req.body.email, hashedPassword, req.body.name, req.body.phone, req.body.address);
+    //add pop up to say entry is added successfully
+    console.log("new user posted");
+    res.redirect("/login?registered=true");
+  }),
+];
+
+exports.show_login_page = asyncHandler(async (req, res, next) => {
+  const registered = req.query.registered === "true";
+  res.render("auth/login", { title: "Login", message: registered ? "Registration successful! Please log in." : null });
+});
+
+exports.show_dashboard = [
+  verify,
+  asyncHandler(async (req, res, next) => {
+    console.log("user:", req.user.name);
+    res.render("main/dashboard", {
+      title: "Dashboard",
+      user: req.user.name,
+    });
+  }),
+];
