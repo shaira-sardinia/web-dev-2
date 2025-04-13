@@ -7,6 +7,7 @@ let organiserDb = null;
 let workshopDb = null;
 let classDb = null;
 let userDb = null;
+let enrolmentDb = null;
 
 const dbService = {
   getOrganiserDb() {
@@ -48,6 +49,16 @@ const dbService = {
       });
     }
     return userDb;
+  },
+
+  getEnrolmentDb() {
+    if (!enrolmentDb) {
+      enrolmentDb = new nedb({
+        filename: path.join(__dirname, "../../../data/enrolment.db"),
+        autoload: true,
+      });
+    }
+    return enrolmentDb;
   },
 
   seedOrganisers() {

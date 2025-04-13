@@ -1,3 +1,4 @@
+const dbService = require("./src/utils/services/dbService");
 const express = require("express");
 const path = require("path");
 const public = path.join(__dirname, "public");
@@ -5,6 +6,8 @@ const bodyParser = require("body-parser");
 const mainRouter = require("./src/routes/mainRoutes");
 const adminRouter = require("./src/routes/adminRoutes");
 const authRouter = require("./src/routes/userRoutes.js");
+const userRoutes = require("./src/routes/userRoutes");
+const enrolmentRoutes = require("./src/routes/enrolmentRoutes");
 const errorRoutes = require("./src/routes/errorRoutes");
 const displayAdmin = require("./src/utils/middlewares/displayAdmin");
 const mustache = require("mustache-express");
@@ -29,6 +32,8 @@ app.use(displayAdmin.setAdminFlag);
 app.use("/", mainRouter);
 app.use("/admin", adminRouter);
 app.use("/", authRouter);
+app.use("/", userRoutes);
+app.use("/", enrolmentRoutes);
 app.use(errorRoutes);
 
 app.listen(3000, () => {

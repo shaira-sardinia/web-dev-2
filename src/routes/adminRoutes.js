@@ -3,6 +3,7 @@ const router = express.Router();
 const workshopController = require("../controllers/workshopController");
 const classController = require("../controllers/classController");
 const organiserController = require("../controllers/organiserController");
+const enrolmentController = require("../controllers/enrolmentController");
 const { verify, checkRole } = require("../auth/authController");
 const { validateWorkshop, validateClass, validateOrganiser } = require("../utils/middlewares/validation");
 const { handleValidationErrors } = require("../utils/errors/validationError");
@@ -83,5 +84,8 @@ router.post(
 );
 
 router.get("/organiser/:orgId/classes", verify, checkRole(["admin"]), organiserController.get_organiser_classes);
+
+router.get("/class/:classId/enrolments", verify, checkRole(["admin"]), enrolmentController.get_class_enrolments);
+router.get("/workshop/:courseId/enrolments", verify, checkRole(["admin"]), enrolmentController.get_workshop_enrolments);
 
 module.exports = router;

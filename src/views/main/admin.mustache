@@ -8,12 +8,7 @@
     <link href="/css/style.css" rel="stylesheet" />
   </head>
   <body>
-    {{#user}}
-        {{> authHeader }}
-    {{/user}}
-    {{^user}}
-       {{> header }}
-    {{/user}}
+    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}
 
     <div>{{title}}</div>
 
@@ -33,6 +28,8 @@
           <form action="/admin/delete-workshop/{{courseId}}" method="POST">
             <button type="submit" class="btn btn-danger">Delete Workshop</button>
           </form>
+
+          <a href="/admin/workshop/{{courseId}}/enrolments" class="btn btn-sm btn-info">View Enrolments</a>
         </div>
       </div>
       {{/workshops}} {{^workshops}}
@@ -61,6 +58,8 @@
           <form action="/admin/delete-class/{{classId}}" method="POST">
             <button type="submit" class="btn btn-danger">Delete Class</button>
           </form>
+
+          <a href="/admin/class/{{classId}}/enrolments" class="btn btn-sm btn-info">View Enrolments</a>
         </div>
       </div>
       {{/classes}} {{^classes}}

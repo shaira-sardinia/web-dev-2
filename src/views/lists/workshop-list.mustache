@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}
+
+    <div class="container">
+      <div class="row mb-4">
+        <div class="card-body">
+          {{#enrolments.length}}
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Enrolled At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#enrolments}}
+              <tr>
+                <td>{{userId}}</td>
+                <td>{{enrolledAt}}</td>
+              </tr>
+              {{/enrolments}}
+            </tbody>
+          </table>
+          <p>Total Enrolments: {{enrolments.length}}</p>
+          {{/enrolments.length}} {{^enrolments.length}}
+          <p>No users are currently enrolled in this class.</p>
+          {{/enrolments.length}}
+        </div>
+      </div>
+    </div>
+
+    {{> footer }}
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

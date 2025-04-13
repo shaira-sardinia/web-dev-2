@@ -5,6 +5,7 @@ const asyncHandler = require("express-async-handler");
 const workshopController = require("./workshopController");
 const classController = require("./classController");
 const organiserController = require("./organiserController");
+const enrolmentService = require("../utils/services/enrolmentService");
 const { verify } = require("../auth/authController");
 
 const userModel = new userDAO();
@@ -32,19 +33,38 @@ exports.show_dashboard = [
   asyncHandler(async (req, res, next) => {
     const loadWorkshops = workshopController.load_workshops();
     const loadClasses = classController.load_classes();
-    const loadOrganisers = organiserController.load_organisers();
-
-    const [workshops, classes, organisers] = await Promise.all([loadWorkshops, loadClasses, loadOrganisers]);
 
     const role = req.user.role;
     console.log("Logged in as:", role);
 
     if (role == "user") {
+      const [workshops, classes] = await Promise.all([loadWorkshops, loadClasses]);
+
+      const userEnrolments = await enrolmentService.getUserEnrolments(req.user.userId);
+
+      const enrolledClassIds = userEnrolments.enrolledClasses.map((cls) => cls.classId);
+      const enrolledWorkshopIds = userEnrolments.enrolledWorkshops.map((ws) => ws.courseId);
+
+      classes.forEach((cls) => {
+        cls.isEnrolled = enrolledClassIds.includes(cls.classId);
+      });
+
+      workshops.forEach((ws) => {
+        ws.isEnrolled = enrolledWorkshopIds.includes(ws.courseId);
+      });
+
       res.render("main/dashboard", {
         title: "Dashboard",
         user: req.user.name,
+        classes,
+        workshops,
+        enrolledClasses: userEnrolments.enrolledClasses,
+        enrolledWorkshops: userEnrolments.enrolledWorkshops,
       });
     } else if (role == "admin") {
+      const loadOrganisers = organiserController.load_organisers();
+      const [workshops, classes, organisers] = await Promise.all([loadWorkshops, loadClasses, loadOrganisers]);
+
       res.render("main/admin", {
         title: "Admin Dashboard",
         workshops: workshops,

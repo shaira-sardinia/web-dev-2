@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require("uuid");
 const { DatabaseError } = require("../utils/errors/customError");
-const dbService = require("../utils/database/dbService");
+const dbService = require("../utils/services/dbService");
 
 const userDb = dbService.getUserDb();
 // dbService.seedUsers();
