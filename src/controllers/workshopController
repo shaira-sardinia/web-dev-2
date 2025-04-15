@@ -24,25 +24,32 @@ exports.post_workshop_entry = [
   validateWorkshop,
   handleValidationErrors("forms/workshop-form"),
   asyncHandler(async (req, res, next) => {
-    await workshopModel.addWorkshop(
-      req.body.name,
-      req.body.description,
-      req.body.numOfSessions,
-      req.body.price,
-      req.body.orgId
-    );
-    //add pop up to say entry is added successfully
-    res.redirect("/dashboard");
+    try {
+      await workshopModel.addWorkshop(
+        req.body.name,
+        req.body.description,
+        req.body.numOfSessions,
+        req.body.price,
+        req.body.orgId
+      );
+      req.flash("success", "Workshop added successfully!");
+      res.redirect("/dashboard");
+    } catch (error) {
+      req.flash("error", "Failed to add workshop. Please try again.");
+      res.redirect("/workshop/new");
+    }
   }),
 ];
 
 exports.delete_workshop = asyncHandler(async (req, res, next) => {
   const courseId = req.params.courseId;
-
-  workshopModel.deleteWorkshop(courseId);
-  console.log(`Workshop ${courseId} deleted successfully`);
-  //add pop up here to say successful
-  res.redirect("/dashboard");
+  try {
+    workshopModel.deleteWorkshop(courseId);
+    req.flash("success", "Workshop deleted successfully!");
+    res.redirect("/dashboard");
+  } catch (error) {
+    req.flash("error", "Failed to delete Workshop. Please try again.");
+  }
 });
 
 exports.edit_workshop = asyncHandler(async (req, res, next) => {
@@ -83,10 +90,13 @@ exports.update_workshop = [
       orgId: req.body.orgId,
     };
 
-    await workshopModel.updateWorkshop(courseId, updatedData).then(() => {
-      console.log(`Workshop ${courseId} update successfully`);
+    try {
+      await workshopModel.updateWorkshop(courseId, updatedData);
+      req.flash("success", "Workshop updated successfully!");
       res.redirect("/dashboard");
-      // add a pop up here to say data updated successfully
-    });
+    } catch (error) {
+      req.flash("error", "Failed to update Workshop. Please try again.");
+      res.redirect(`/workshop/edit/${courseId}`);
+    }
   }),
 ];

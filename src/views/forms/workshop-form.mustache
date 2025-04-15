@@ -5,7 +5,7 @@
       <div class="alert alert-danger" role="alert">{{errors}}</div>
       {{/errors}}
       <form
-        action="{{#isEditing}}/admin/update-workshop/{{courseId}}{{/isEditing}}{{^isEditing}}/admin/new-workshop{{/isEditing}}"
+        action="{{#isEditing}}/admin/workshop/update/{{courseId}}{{/isEditing}}{{^isEditing}}/admin/workshop/new{{/isEditing}}"
         method="POST"
       >
         <div class="mb-3">

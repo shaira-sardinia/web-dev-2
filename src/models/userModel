@@ -34,6 +34,20 @@ class UserModel {
     });
   }
 
+  findUserById(userId) {
+    return new Promise((resolve, reject) => {
+      userDb.findOne({ userId, userId }, (err, user) => {
+        if (err) {
+          const failToFindUser = new DatabaseError("Failed to retrieve user", 500, {
+            originalError: err,
+          });
+          return reject(failToFindUser);
+        }
+        resolve(user);
+      });
+    });
+  }
+
   addUser(email, password, name, phone, address) {
     var entry = {
       userId: uuidv4(),
@@ -79,7 +93,6 @@ class UserModel {
         {
           $set: {
             name: updatedData.name,
-            phone: updatedData.phone,
             phone: updatedData.phone,
             address: updatedData.address,
           },

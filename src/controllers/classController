@@ -23,18 +23,25 @@ exports.post_class_entry = [
   validateClass,
   handleValidationErrors("forms/class-form"),
   asyncHandler(async (req, res, next) => {
-    await classModel.addClass(req.body.name, req.body.description, req.body.schedule, req.body.price, req.body.orgId);
-    //add pop up to say entry is added successfully
-    res.redirect("/dashboard");
+    try {
+      await classModel.addClass(req.body.name, req.body.description, req.body.schedule, req.body.price, req.body.orgId);
+      req.flash("success", "Class added successfully!");
+      res.redirect("/dashboard");
+    } catch (error) {}
+    req.flash("error", "Failed to add class. Please try again.");
+    res.redirect("/class/new");
   }),
 ];
 
 exports.delete_class = asyncHandler(async (req, res, next) => {
   const classId = req.params.classId;
-  classModel.deleteClass(classId);
-  console.log(`Class ${classId} deleted successfully`);
-  //add pop up here to say successful
-  res.redirect("/dashboard");
+  try {
+    classModel.deleteClass(classId);
+    req.flash("success", "Class deleted successfully!");
+    res.redirect("/dashboard");
+  } catch (error) {
+    req.flash("error", "Failed to delete class. Please try again.");
+  }
 });
 
 exports.edit_class = asyncHandler(async (req, res, next) => {
@@ -75,10 +82,13 @@ exports.update_class = [
       orgId: req.body.orgId,
     };
 
-    await classModel.updateClass(classId, updatedData).then(() => {
-      console.log(`Class ${classId} update successfully`);
+    try {
+      await classModel.updateClass(classId, updatedData);
+      req.flash("success", "Class updated successfully!");
       res.redirect("/dashboard");
-      // add a pop up here to say data updated successfully
-    });
+    } catch (error) {
+      req.flash("error", "Failed to update class. Please try again.");
+      res.redirect(`/classes/edit/${classId}`);
+    }
   }),
 ];

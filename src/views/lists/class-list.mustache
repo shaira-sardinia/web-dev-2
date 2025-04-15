@@ -11,20 +11,28 @@
     {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}
 
     <div class="container">
+      <div class="row mb-3">
+        <div class="col-12">
+          <h2 class="mb-3">{{#classDetails}} Enrollments for {{name}} {{/classDetails}}</h2>
+          {{#classDetails}}
+          <p class="text-muted">{{description}}</p>
+          {{/classDetails}}
+        </div>
+      </div>
       <div class="row mb-4">
         <div class="card-body">
           {{#enrolments.length}}
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>User ID</th>
+                <th>Enrolled User</th>
                 <th>Enrolled At</th>
               </tr>
             </thead>
             <tbody>
               {{#enrolments}}
               <tr>
-                <td>{{userId}}</td>
+                <td>{{userName}}</td>
                 <td>{{enrolledAt}}</td>
               </tr>
               {{/enrolments}}

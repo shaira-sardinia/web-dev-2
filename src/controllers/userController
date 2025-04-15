@@ -10,6 +10,11 @@ const { verify } = require("../auth/authController");
 
 const userModel = new userDAO();
 
+exports.load_users = asyncHandler(async () => {
+  const list = await userModel.getAllUsers();
+  return list;
+});
+
 exports.show_register_page = asyncHandler(async (req, res, next) => {
   res.render("auth/register", { title: "Register" });
 });
@@ -18,11 +23,20 @@ exports.post_new_user = [
   asyncHandler(async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     await userModel.addUser(req.body.email, hashedPassword, req.body.name, req.body.phone, req.body.address);
-    //add pop up to say entry is added successfully
-    console.log("new user posted");
     res.redirect("/login?registered=true");
   }),
 ];
+
+exports.delete_user = asyncHandler(async (req, res, next) => {
+  const userId = req.params.userId;
+  try {
+    userModel.deleteUser(userId);
+    req.flash("success", "User deleted permanently!");
+    res.redirect("/dashboard");
+  } catch (error) {
+    req.flash("error", "Failed to delete User. Please try again.");
+  }
+});
 
 exports.show_login_page = asyncHandler(async (req, res, next) => {
   const registered = req.query.registered === "true";
@@ -63,13 +77,20 @@ exports.show_dashboard = [
       });
     } else if (role == "admin") {
       const loadOrganisers = organiserController.load_organisers();
-      const [workshops, classes, organisers] = await Promise.all([loadWorkshops, loadClasses, loadOrganisers]);
+      const loadUsers = this.load_users();
+      const [workshops, classes, organisers, users] = await Promise.all([
+        loadWorkshops,
+        loadClasses,
+        loadOrganisers,
+        loadUsers,
+      ]);
 
       res.render("main/admin", {
         title: "Admin Dashboard",
         workshops: workshops,
         classes: classes,
         organisers: organisers,
+        users: users,
         user: req.user.name,
       });
     } else {

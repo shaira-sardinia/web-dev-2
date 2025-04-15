@@ -10,107 +10,40 @@
   <body>
     {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}
 
-    <div>{{title}}</div>
-
-    <div>
-      {{#workshops}}
-      <div class="workshop-entry">
-        <h3>{{name}}</h3>
-        <p>{{description}}</p>
-        <p>{{numOfSessions}} sessions</p>
-        <p>£ {{price}}</p>
-        <p>Instructor: {{#organiser}}{{name}}{{/organiser}}</p>
-        <div class="workshop-actions">
-          <form action="/admin/edit-workshop/{{courseId}}" method="GET">
-            <button type="submit" class="btn btn-danger">Edit Workshop</button>
-          </form>
-
-          <form action="/admin/delete-workshop/{{courseId}}" method="POST">
-            <button type="submit" class="btn btn-danger">Delete Workshop</button>
-          </form>
-
-          <a href="/admin/workshop/{{courseId}}/enrolments" class="btn btn-sm btn-info">View Enrolments</a>
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col-12">
+          <h2 class="mb-3">{{#workshopDetails}} Enrollments for {{name}} {{/workshopDetails}}</h2>
+          {{#workshopDetails}}
+          <p class="text-muted">{{description}}</p>
+          {{/workshopDetails}}
         </div>
       </div>
-      {{/workshops}} {{^workshops}}
-      <p>No workshops found</p>
-      {{/workshops}}
-
-      <div class="text-right">
-        <a href="/admin/new-workshop" class="btn btn-primary">Add a Workshop</a>
-      </div>
-    </div>
-
-    <div>
-      {{#classes}}
-
-      <div class="class-entry">
-        <h3>Class Name: {{name}}</h3>
-        <p>{{description}}</p>
-        <p>{{schedule}}</p>
-        <p>£ {{price}}</p>
-        <p>Instructor: {{#organiser}}{{name}}{{/organiser}}</p>
-        <div class="class-actions">
-          <form action="/admin/edit-class/{{classId}}" method="GET">
-            <button type="submit" class="btn btn-danger">Edit Class</button>
-          </form>
-
-          <form action="/admin/delete-class/{{classId}}" method="POST">
-            <button type="submit" class="btn btn-danger">Delete Class</button>
-          </form>
-
-          <a href="/admin/class/{{classId}}/enrolments" class="btn btn-sm btn-info">View Enrolments</a>
+      <div class="row mb-4">
+        <div class="card-body">
+          {{#enrolments.length}}
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Enrolled User</th>
+                <th>Enrolled At</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#enrolments}}
+              <tr>
+                <td>{{userName}}</td>
+                <td>{{enrolledAt}}</td>
+              </tr>
+              {{/enrolments}}
+            </tbody>
+          </table>
+          <p>Total Enrolments: {{enrolments.length}}</p>
+          {{/enrolments.length}} {{^enrolments.length}}
+          <p>No users are currently enrolled in this class.</p>
+          {{/enrolments.length}}
         </div>
       </div>
-      {{/classes}} {{^classes}}
-      <p>No classes found</p>
-      {{/classes}}
-
-      <div class="text-right">
-        <a href="/admin/new-class" class="btn btn-primary">Add a Class</a>
-      </div>
-    </div>
-
-    <div class="container mt-4">
-      <a href="/admin/new-organiser" class="btn btn-primary mb-3">Add New Organiser</a>
-
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#organisers}}
-          <tr>
-            <td>{{name}}</td>
-            <td>{{email}}</td>
-            <td>{{phone}}</td>
-            <td>
-              <div class="d-flex">
-                <form action="/admin/edit-organiser/{{orgId}}" method="GET">
-                  <button type="submit" class="btn btn-sm btn-warning me-2">Edit</button>
-                </form>
-                <form
-                  action="/admin/delete-organiser/{{orgId}}"
-                  method="POST"
-                  onsubmit="return confirm('Are you sure you want to delete this organiser?');"
-                >
-                  <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                </form>
-              </div>
-            </td>
-          </tr>
-          {{/organisers}} {{^organisers}}
-          <tr>
-            <td colspan="4" class="text-center">No organisers found</td>
-          </tr>
-          {{/organisers}}
-        </tbody>
-      </table>
     </div>
 
     {{> footer }}

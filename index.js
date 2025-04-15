@@ -12,6 +12,8 @@ const errorRoutes = require("./src/routes/errorRoutes");
 const displayAdmin = require("./src/utils/middlewares/displayAdmin");
 const mustache = require("mustache-express");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const flash = require("connect-flash");
 const app = express();
 
 require("dotenv").config();
@@ -28,6 +30,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(displayAdmin.setAdminFlag);
+
+app.use(
+  session({
+    secret: "my-secret-token",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.success_msg = req.flash("success");
+  res.locals.error_msg = req.flash("error");
+  res.locals.info_msg = req.flash("info");
+  next();
+});
 
 app.use("/", mainRouter);
 app.use("/admin", adminRouter);

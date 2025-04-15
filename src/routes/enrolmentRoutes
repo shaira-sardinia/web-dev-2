@@ -9,13 +9,4 @@ router.post("/workshop/:courseId/enroll", verify, checkRole(["user"]), enrolment
 router.post("/class/:classId/unenroll", verify, checkRole(["user"]), enrolmentController.unenroll_from_class);
 router.post("/workshop/:courseId/unenroll", verify, checkRole(["user"]), enrolmentController.unenroll_from_workshop);
 
-// /* Admin */
-// router.get("/admin/class/:classId/enrolments", verify, checkRole(["admin"]), enrolmentController.get_class_enrolments);
-// router.get(
-//   "/admin/workshop/:courseId/enrolments",
-//   verify,
-//   checkRole(["admin"]),
-//   enrolmentController.get_workshop_enrolments
-// );
-
 module.exports = router;

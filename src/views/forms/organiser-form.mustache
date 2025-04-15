@@ -6,7 +6,7 @@
   {{/errors}}
 
   <form
-    action="{{#isEditing}}/admin/update-organiser/{{orgId}}{{/isEditing}}{{^isEditing}}/admin/new-organiser{{/isEditing}}"
+    action="{{#isEditing}}/admin/organiser/update/{{orgId}}{{/isEditing}}{{^isEditing}}/admin/organiser/new{{/isEditing}}"
     method="POST"
   >
     <div class="mb-3">
@@ -32,6 +32,6 @@
     <button type="submit" class="btn btn-primary">
       {{#isEditing}}Update{{/isEditing}}{{^isEditing}}Create{{/isEditing}} Organiser
     </button>
-    <a href="/admin/" class="btn btn-secondary">Cancel</a>
+    <a href="/admin/organisers" class="btn btn-secondary">Cancel</a>
   </form>
 </div>

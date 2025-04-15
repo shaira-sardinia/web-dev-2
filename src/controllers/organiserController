@@ -22,18 +22,27 @@ exports.post_organiser_entry = [
   validateOrganiser,
   handleValidationErrors("forms/organiser-form"),
   asyncHandler(async (req, res, next) => {
-    await organiserModel.addOrganiser(req.body.name, req.body.email, req.body.phone, req.body.bio);
-    //add pop up to say entry is added successfully
-    res.redirect("/dashboard");
+    try {
+      await organiserModel.addOrganiser(req.body.name, req.body.email, req.body.phone, req.body.bio);
+      req.flash("success", "Organiser added successfully!");
+      res.redirect("/dashboard");
+    } catch (error) {
+      req.flash("error", "Failed to add Organiser. Please try again.");
+      res.redirect("/organiser/new");
+    }
   }),
 ];
 
 exports.delete_organiser = asyncHandler(async (req, res, next) => {
   const orgId = req.params.orgId;
-  organiserModel.deleteOrganiser(orgId);
-  console.log(`Organiser  ${orgId} deleted successfully`);
-  //add pop up here to say successful
-  res.redirect("/dashboard");
+  try {
+    organiserModel.deleteOrganiser(orgId);
+    console.log(`Organiser  ${orgId} deleted successfully`);
+    req.flash("success", "Organiser deleted successfully!");
+    res.redirect("/dashboard");
+  } catch (error) {
+    req.flash("error", "Failed to delete Organiser. Please try again.");
+  }
 });
 
 exports.edit_organiser = asyncHandler(async (req, res, next) => {
@@ -61,21 +70,24 @@ exports.update_organiser = [
       bio: req.body.bio,
     };
 
-    await organiserModel.updateOrganiser(orgId, updatedData).then(() => {
-      console.log(`Organiser ${orgId} update successfully`);
+    try {
+      await organiserModel.updateOrganiser(orgId, updatedData);
+      req.flash("success", "Organiser updated successfully!");
       res.redirect("/dashboard");
-      // add a pop up here to say data updated successfully
-    });
+    } catch (error) {
+      req.flash("error", "Failed to update Organiser. Please try again.");
+      res.redirect(`/workshop/edit/${courseId}`);
+    }
   }),
 ];
 
-exports.get_organiser_classes = asyncHandler(async (req, res) => {
-  const orgId = req.params.orgId;
-  const classes = await classModel.getClassesByOrganiser(orgId);
-  const organiser = await organiserModel.findOrganiser(orgId);
+// exports.get_organiser_classes = asyncHandler(async (req, res) => {
+//   const orgId = req.params.orgId;
+//   const classes = await classModel.getClassesByOrganiser(orgId);
+//   const organiser = await organiserModel.findOrganiser(orgId);
 
-  res.render("organiser-profile", {
-    classes,
-    organiser,
-  });
-});
+//   res.render("organiser-profile", {
+//     classes,
+//     organiser,
+//   });
+// });

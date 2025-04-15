@@ -18,9 +18,9 @@ async function getUserEnrolments(userId) {
     const classEnrolments = enrolments.filter((enrol) => enrol.type === "Class");
     const workshopEnrolments = enrolments.filter((enrol) => enrol.type === "Workshop");
 
-    const classPromises = classEnrolments.map((enrol) => classModel.getClassById(enrol.classId));
+    const classPromises = classEnrolments.map((enrol) => classModel.findClass(enrol.classId));
 
-    const workshopPromises = workshopEnrolments.map((enrol) => workshopModel.getWorkshopById(enrol.courseId));
+    const workshopPromises = workshopEnrolments.map((enrol) => workshopModel.findWorkshop(enrol.courseId));
 
     const [enrolledClasses, enrolledWorkshops] = await Promise.all([
       Promise.all(classPromises),

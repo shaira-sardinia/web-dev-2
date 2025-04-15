@@ -2,12 +2,14 @@ const asyncHandler = require("express-async-handler");
 const EnrolmentDAO = require("../models/enrolmentModel");
 const ClassDAO = require("../models/classModel");
 const WorkshopDAO = require("../models/workshopModel");
+const userDAO = require("../models/userModel");
 const enrolmentService = require("../utils/services/enrolmentService");
 const { ThrowError } = require("../utils/errors/customError");
 
 const enrolmentModel = new EnrolmentDAO();
 const classModel = new ClassDAO();
 const workshopModel = new WorkshopDAO();
+const userModel = new userDAO();
 
 /* Show enrolments on user dashboard */
 exports.get_user_enrolments = asyncHandler(async (req, res, next) => {
@@ -37,7 +39,7 @@ exports.enroll_in_class = asyncHandler(async (req, res, next) => {
     req.flash("success", "Successfully enrolled in class!");
     res.redirect("/dashboard");
   } catch (error) {
-    req.flash("error", error.message);
+    req.flash("error", "Sorry unable to enroll. Please try again.");
     res.redirect("/dashboard");
   }
 });
@@ -48,10 +50,10 @@ exports.unenroll_from_class = asyncHandler(async (req, res, next) => {
 
   try {
     const result = await enrolmentModel.deleteClassEnrolment(userId, classId);
-    req.flash("success", "Successfully unenrolled from class");
+    req.flash("success", "Successfully unenrolled from class!");
     res.redirect("/dashboard");
   } catch (error) {
-    req.flash("error", error.message);
+    req.flash("success", "Sorry couldn't unenroll you. Please try again.");
     res.redirect("/dashboard");
   }
 });
@@ -66,7 +68,7 @@ exports.enroll_in_workshop = asyncHandler(async (req, res, next) => {
     req.flash("success", "Successfully enrolled in workshop!");
     res.redirect("/dashboard");
   } catch (error) {
-    req.flash("error", error.message);
+    req.flash("error", "Sorry unable to enroll. Please try again.");
     res.redirect("/dashboard");
   }
 });
@@ -77,10 +79,10 @@ exports.unenroll_from_workshop = asyncHandler(async (req, res, next) => {
 
   try {
     const result = await enrolmentModel.deleteWorkshopEnrolment(userId, courseId);
-    req.flash("success", "Successfully unenrolled from workshop");
+    req.flash("success", "Successfully unenrolled from workshop!");
     res.redirect("/dashboard");
   } catch (error) {
-    req.flash("error", error.message);
+    req.flash("success", "Sorry couldn't unenroll you. Please try again.");
     res.redirect("/dashboard");
   }
 });
@@ -98,13 +100,22 @@ exports.get_class_enrolments = asyncHandler(async (req, res, next) => {
 
     const enrolments = await enrolmentModel.getEnrolmentsByClass(classId);
 
+    const userPromises = enrolments.map((enrollment) => userModel.findUserById(enrollment.userId));
+    const users = await Promise.all(userPromises);
+
+    const enrichedEnrolments = enrolments.map((enrollment, index) => ({
+      ...enrollment,
+      userName: users[index] ? users[index].name : "Unknown User",
+    }));
+
     res.render("lists/class-list", {
       title: `Enrolments for ${classDetails.name}`,
       classDetails,
-      enrolments,
+      enrolments: enrichedEnrolments,
       user: req.user.name,
     });
   } catch (error) {
+    req.flash("error", "Sorry failed to retrieve class enrolments. Please try again.");
     next(error);
   }
 });
@@ -118,14 +129,24 @@ exports.get_workshop_enrolments = asyncHandler(async (req, res, next) => {
       throw new ThrowError("Workshop not found", 404);
     }
     const enrolments = await enrolmentModel.getEnrolmentsByWorkshop(courseId);
+    console.log("Enrolments:", enrolments);
+
+    const userPromises = enrolments.map((enrollment) => userModel.findUserById(enrollment.userId));
+    const users = await Promise.all(userPromises);
+
+    const enrichedEnrolments = enrolments.map((enrollment, index) => ({
+      ...enrollment,
+      userName: users[index] ? users[index].name : "Unknown User",
+    }));
 
     res.render("lists/workshop-list", {
       title: `Enrolments for ${workshopDetails.name}`,
       workshopDetails,
-      enrolments,
+      enrolments: enrichedEnrolments,
       user: req.user.name,
     });
   } catch (error) {
+    req.flash("error", "Sorry failed to retrieve workshop enrolments. Please try again.");
     next(error);
   }
 });

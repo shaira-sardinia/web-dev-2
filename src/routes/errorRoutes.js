@@ -33,11 +33,10 @@ router.use(function (err, req, res, next) {
     return res.redirect(req.get("Referrer"));
   }
 
+  const statusCode = err.statusCode || 500;
   if (statusCode === 404) {
     return res.status(404).render("errors/404");
   }
-
-  const statusCode = err.statusCode || 500;
 
   /* All other errors */
   res.status(statusCode).render("errors/error", {
