@@ -1,6 +1,6 @@
 # Inspired Movement Web Application
 
-This web application was developed as a practical coursework assignment for the Web Application Development 2 module. Its purpose is to serve as a learning exercise, demonstrating the ability to design, develop, test, and deploy a robust web application utilizing relevant tools and frameworks.
+This web application was developed as a practical coursework for the Web Application Development module. Its purpose is to serve as a learning exercise, demonstrating the ability to design, develop, test, and deploy a robust web application utilising relevant tools and frameworks.
 
 This project focuses on building a website for a local dance organization to manage their courses, enrollments, and user information. It showcases the practical application of Node.js, Express, NeDB, and Mustache templating.
 
