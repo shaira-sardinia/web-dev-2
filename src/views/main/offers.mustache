@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}
+    <main>
+      <div class="container-sm m-6">
+        <div class="classes-offer m-6 p-6">
+          <p class="highlighted-text fs-1 mt-3">Classes</p>
+          {{#classes.length}}
+          <div>
+            {{#classes}}
+            <div class="card mb-3 gap-3">
+              <img src="/img/stock/class.jpg" class="card-img-top" alt="A ballet dancer" />
+              <div class="card-body">
+                <h5 class="card-title">{{name}}</h5>
+                <p class="card-text">{{description}}</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">Every {{schedule}}</li>
+                <li class="list-group-item">£ {{price}}</li>
+              </ul>
+            </div>
+            {{/classes}}
+          </div>
+          {{/classes.length}} {{^classes.length}}
+          <p>No classes are currently available.</p>
+          {{/classes.length}}
+        </div>
+
+        <div class="d-grid gap-2 col-6 mx-auto m-5">
+          <a href="/register" class="btn btn-styled">Book your first class!</a>
+        </div>
+
+        <div class="workshops-offer m-6 p-6">
+          <p class="highlighted-text fs-1 mt-3">Workshops</p>
+          {{#workshops.length}}
+          <div>
+            {{#workshops}}
+            <div class="card mb-3 gap-3">
+              <img src="/img/stock/workshop.jpg" class="card-img-top" alt="A ballet dancer" />
+              <div class="card-body">
+                <h5 class="card-title">{{name}}</h5>
+                <p class="card-text">{{description}}</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{numOfSessions}} Sessions</li>
+                <li class="list-group-item">£ {{price}}</li>
+              </ul>
+            </div>
+            {{/workshops}}
+          </div>
+          {{/workshops.length}} {{^workshops.length}}
+          <p>No workshops are currently available.</p>
+          {{/workshops.length}}
+        </div>
+
+        <div class="d-grid gap-2 col-6 mx-auto m-5">
+          <a href="/register" class="btn btn-styled">Book a workshop!</a>
+        </div>
+
+        <div class="card justify-content-center">
+          <div class="card-body p-4 text-center">
+            <p class="m-0">Inspired Movement Studio</p>
+            <p class="m-0">123 Sagan Street, Anytown, UK AB1 2CD</p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {{> footer }}
+
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

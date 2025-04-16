@@ -1,0 +1,34 @@
+const { body, validationResult } = require("express-validator");
+
+const validateWorkshop = [
+  body("name").trim().notEmpty(),
+  body("description").trim().notEmpty(),
+  body("numOfSessions").trim().notEmpty(),
+  body("price").trim().notEmpty().toFloat(),
+];
+
+const validateClass = [
+  body("name").trim().notEmpty(),
+  body("description").trim().notEmpty(),
+  body("schedule").trim().notEmpty(),
+  body("price").trim().notEmpty().toFloat(),
+];
+
+const validateOrganiser = [
+  body("name").trim().notEmpty(),
+  body("email").trim().notEmpty(),
+  body("phone").trim().notEmpty().toFloat(),
+  body("bio").trim().notEmpty(),
+];
+
+const validateUser = [
+  body("email").trim().notEmpty(),
+  body("password").trim().notEmpty(),
+  body("name").trim().notEmpty(),
+  body("phone").trim().notEmpty().toFloat(),
+  body("address").trim().notEmpty(),
+];
+
+const validateLogin = [body("email").trim().notEmpty(), body("password").trim().notEmpty()];
+
+module.exports = { validateWorkshop, validateClass, validateOrganiser, validateUser, validateLogin };

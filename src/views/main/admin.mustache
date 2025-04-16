@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}} {{> flash}}
+    <main>
+      <div class="mx-5 py-4">
+        <p class="highlighted-text fs-1 mt-5">Admin Dashboard</p>
+      </div>
+
+    <div class="mx-4">
+        <div class="mx-5 p-2 workshops">
+          <p class="fs-4">Manage Workshops</p>
+          <div class="accordion" id="workshopAccordion">
+            {{#workshops}}
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse-{{courseId}}"
+                  aria-expanded="true"
+                  aria-controls="collapse-{{courseId}}"
+                >
+                  {{name}}
+                </button>
+              </h2>
+              <div id="collapse-{{courseId}}" class="accordion-collapse collapse" data-bs-parent="#workshopAccordion">
+                <div class="accordion-body flex">
+                  <p>{{description}}</p>
+                  <p>{{numOfSessions}} sessions | <strong>£ {{price}}</strong></p>
+                  <p>Instructor: {{#organiser}}{{name}}{{/organiser}}</p>
+                  <div class="actions d-flex flex-row gap-2 justify-content-end py-4">
+                    <a href="/admin/workshop/{{courseId}}/enrolments" class="btn btn-clear flex-shrink-0"
+                      >View Enrolments</a
+                    >
+                    <form action="/admin/workshop/edit/{{courseId}}" method="GET">
+                      <button type="submit" class="btn btn-clear">Edit Workshop</button>
+                    </form>
+                    <form action="/admin/workshop/delete/{{courseId}}" method="POST">
+                      <button type="submit" class="btn btn-secondary">Delete Workshop</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/workshops}} {{^workshops}}
+            <p>No workshops found</p>
+            {{/workshops}}
+          </div>
+          <div class="d-flex p-3 justify-content-end">
+            <a href="/admin/workshop/new" class="btn btn-styled">Add a new workshop</a>
+          </div>
+        </div>
+
+        <div class="mx-5 p-2 classes">
+          <p class="fs-4">Manage Classes</p>
+          <div class="accordion" id="classesAccordion">
+            {{#classes}}
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse-{{classId}}"
+                  aria-expanded="true"
+                  aria-controls="collapse-{{classId}}"
+                >
+                  {{name}}
+                </button>
+              </h2>
+              <div id="collapse-{{classId}}" class="accordion-collapse collapse" data-bs-parent="#classesAccordion">
+                <div class="accordion-body flex">
+                  <p>{{description}}</p>
+                  <p>{{schedule}} sessions | <strong>£ {{price}}</strong></p>
+                  <p>Instructor: {{#organiser}}{{name}}{{/organiser}}</p>
+                  <div class="actions d-flex flex-row gap-2 justify-content-end py-4">
+                    <a href="/admin/class/{{classId}}/enrolments" class="btn btn-clear flex-shrink-0"
+                      >View Enrolments</a
+                    >
+                    <form action="/admin/class/edit/{{classId}}" method="GET">
+                      <button type="submit" class="btn btn-clear">Edit Class</button>
+                    </form>
+                    <form action="/admin/class/delete/{{classId}}" method="POST">
+                      <button type="submit" class="btn btn-secondary">Delete Class</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/classes}} {{^classes}}
+            <p>No classes found</p>
+            {{/classes}}
+          </div>
+          <div class="d-flex p-3 mt-2 justify-content-end">
+            <a href="/admin/class/new" class="btn btn-styled">Add a new class</a>
+          </div>
+        </div>
+
+        <div class="organisers mx-5 p-2">
+          <p class="fs-4">Manage Organisers</p>
+          <table class="table mx-auto table-responsive">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Bio</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#organisers}}
+              <tr>
+                <th scope="row">{{name}}</th>
+                <td>{{email}}</td>
+                <td>{{phone}}</td>
+                <td><span class="bio-text">{{bio}}</span></td>
+                <td>
+                  <div class="d-flex">
+                    <form action="/admin/organiser/edit/{{orgId}}" method="GET">
+                      <button type="submit" class="btn btn-sm btn-clear me-2">Edit</button>
+                    </form>
+                    <form
+                      action="/admin/organiser/delete/{{orgId}}"
+                      method="POST"
+                      onsubmit="return confirm('Are you sure you want to remove this user permanently?');"
+                    >
+                      <button type="submit" class="btn btn-sm btn-secondary btn-sm">Delete</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              {{/organisers}} {{^organisers}}
+              <tr>
+                <td colspan="5" class="text-center">No organisers found</td>
+              </tr>
+              {{/organisers}}
+            </tbody>
+          </table>
+          <div class="d-flex p-3 mt-2 justify-content-end">
+            <a href="/admin/organiser/new" class="btn btn-styled">Add a new organiser</a>
+          </div>
+        </div>
+
+        <div class="users mx-5 p-2">
+          <p class="fs-4">Manage Users</p>
+          <table class="table mx-auto table-responsive">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#users}}
+              <tr>
+                <th scope="row">{{name}}</th>
+                <td>{{email}}</td>
+                <td>{{phone}}</td>
+                <td>{{address}}</td>
+                <td>
+                  <div class="d-flex">
+                    <form
+                      action="/admin/user/delete/{{userId}}"
+                      method="POST"
+                      onsubmit="return confirm('Are you sure you want to remove this user permanently?');"
+                    >
+                      <button type="submit" class="btn btn-sm btn-secondary btn-sm">Remove</button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              {{/users}} {{^users}}
+              <tr>
+                <td colspan="5" class="text-center">No users found</td>
+              </tr>
+              {{/users}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    {{> pageBreak }}
+
+    {{> footer }}
+
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/alerts.js"></script>
+  </body>
+</html>

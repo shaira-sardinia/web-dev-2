@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}} {{> flash}}
+    <main>
+      <div class="mt-4 pd-3">
+        <nav aria-label="breadcrumb">
+          <a href="/dashboard" class="breadcrumb-text">Back</a>
+        </nav>
+      </div>
+      <div class="mx-5">
+        <p class="highlighted-text fs-1 mt-5">Class List</p>
+      </div>
+
+      <div class="mx-4">
+        <div class="mx-5 p-2">
+          <div class="pb-5">
+            <p class="fs-5">{{#classDetails}} Enrolments for {{name}} {{/classDetails}}</p>
+            {{#classDetails}}
+            <p class="text-muted">{{description}}</p>
+          </div>
+          {{/classDetails}} {{#enrolments.length}}
+          <table class="table mx-auto table-responsive">
+            <thead>
+              <tr>
+                <th scope="col">Enrolled User</th>
+                <th scope="col">Enrolled at</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#enrolments}}
+              <tr>
+                <th scope="row">{{userName}}</th>
+                <td>{{enrolledAt}}</td>
+              </tr>
+              {{/enrolments}}
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-end px-3">
+            <p>Total Enrolments: {{enrolments.length}}</p>
+            {{/enrolments.length}}
+          </div>
+          <div class="d-flex justify-content-center px-3">
+            {{^enrolments.length}}
+            <p>No users are currently enrolled in this class.</p>
+            {{/enrolments.length}}
+          </div>
+        </div>
+      </div>
+    </main>
+
+    {{> footer }}
+
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

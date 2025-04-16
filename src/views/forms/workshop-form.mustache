@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}     {{> flash}}
+    <div>
+      {{#errors}}
+      <div class="alert alert-danger" role="alert">{{errors}}</div>
+      {{/errors}}
+      <div class="mt-4 pd-3">
+        <nav aria-label="breadcrumb">
+          <a href="/dashboard" class="breadcrumb-text">Back</a>
+        </nav>
+      </div>
+      <div class="container-sm m-6 pt-2">
+        <p class="highlighted-text fs-1 mt-3">Workshop</p>
+        <form
+          action="{{#isEditing}}/admin/workshop/update/{{courseId}}{{/isEditing}}{{^isEditing}}/admin/workshop/new{{/isEditing}}"
+          method="POST"
+        >
+          <div class="mb-3">
+            <label for="class-name" class="form-label">Name</label>
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              id="class-name"
+              value="{{#workshop}}{{name}}{{/workshop}}"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="class-desc" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="workshop-desc"
+              name="description"
+              placeholder="Enter workshop description"
+            >
+{{#workshop}}{{description}}{{/workshop}}
+          </textarea
+            >
+          </div>
+          <div class="mb-3">
+            <label for="schedule" class="form-label">Number of Sessions</label>
+            <input
+              type="text"
+              class="form-control"
+              id="num-of-sessions"
+              name="numOfSessions"
+              value="{{#workshop}}{{numOfSessions}}{{/workshop}}"
+              min="1"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="class-price" class="form-label">Price</label>
+            <input
+              type="number"
+              class="form-control"
+              id="workshop-price"
+              name="price"
+              value="{{#workshop}}{{price}}{{/workshop}}"
+              min="1"
+              step="1"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="workshop-organiser" class="form-label">Select an instructor</label>
+            <select class="form-select" name="orgId" id="orgId" required>
+              <option value="">Select someone</option>
+              {{#organisers}}
+              <option value="{{orgId}}">{{name}}</option>
+              {{/organisers}}
+            </select>
+          </div>
+          <div class="pt-3">
+            <button type="submit" class="btn btn-styled">
+              {{#isEditing}}Update{{/isEditing}}{{^isEditing}}Create{{/isEditing}} Workshop
+            </button>
+            <a href="/dashboard" class="btn btn-secondary ms-2">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  <script src="/js/alerts.js"></script>
+  </body>
+</html>
