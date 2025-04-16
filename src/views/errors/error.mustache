@@ -1,8 +1,21 @@
-<html>
-<body>
-    <div class="error-container">
-        <h1>{{errorTitle}}</h1>
-        <p class="error-message">{{errorMessage}}</p>
-        <a href="/" class="btn btn-primary">Go Back to Homepage</a>
-    </div
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body class="d-flex align-items-center justify-content-center vh-100">
+    <main class="text-center">
+      <div class="container-sm pb-5">
+        <p class="highlighted-text">Sorry!</p>
+        <p class="pb-3">An unexpected error occured</p>
+        <a href="/" class="btn btn-styled">Go Back to Homepage</a>
+      </div>
+      {{> pageBreak }}
+    </main>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

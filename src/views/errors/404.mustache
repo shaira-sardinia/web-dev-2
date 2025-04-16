@@ -1,9 +1,22 @@
-<html>
-<body>
-    <div class="error-container">
-        <h1>Page Not Found</h1>
-        <p class="error-message">The page you're looking for doesn't exist or may have been moved.</p>
-        <a href="/" class="btn btn-primary">Go Back to Homepage</a>
-    </div>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body class="d-flex align-items-center justify-content-center vh-100">
+    <main class="text-center">
+      <div class="container-sm pb-5">
+        <p class="highlighted-text fs-1">Oops, sorry!</p>
+        <p>Something went wrong.</p>
+        <p class="pb-3">The page you're looking for doesn't exist or may have been moved.</p>
+        <a href="/" class="btn btn-styled">Go Back to Homepage</a>
+      </div>
+      {{> pageBreak }}
+    </main>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
