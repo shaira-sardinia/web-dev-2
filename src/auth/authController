@@ -7,40 +7,49 @@ const { AuthenticationError } = require("../utils/errors/customError");
 const userModel = new userDAO();
 
 exports.login = asyncHandler(async (req, res, next) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
 
-  const user = await userModel.findUser(email);
+    const user = await userModel.findUser(email);
 
-  if (!user) {
-    console.log(`User ${email} not found.`);
-    throw new AuthenticationError("Invalid email or password.", 401);
-    //render alert here, no email found!
+    if (!user) {
+      console.log(`User ${email} not found.`);
+      req.flash("error", "Invalid email or password. Please try again.");
+      return res.redirect("/login");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      req.flash("error", "Invalid email or password. Please try again.");
+      return res.redirect("/login");
+    }
+
+    let payload = {
+      email: user.email,
+      userId: user.userId,
+      name: user.name,
+      role: user.role || "user",
+    };
+
+    let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
+    res.cookie("jwt", accessToken);
+
+    req.flash("success", `Welcome, ${user.name}!`);
+    res.redirect("/dashboard");
+  } catch (error) {
+    console.error("Login error:", error);
+    req.flash("error", "An error occurred during login. Please try again.");
+    res.redirect("/login");
   }
-
-  const isPasswordValid = await bcrypt.compare(password, user.password);
-  if (!isPasswordValid) {
-    throw new AuthenticationError("Invalid email or password.", 401);
-  }
-
-  let payload = {
-    email: user.email,
-    userId: user.userId,
-    name: user.name,
-    role: user.role || "user",
-  };
-
-  let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
-  res.cookie("jwt", accessToken);
-
-  res.redirect("/dashboard");
 });
 
 exports.verify = asyncHandler(async (req, res, next) => {
   let accessToken = req.cookies.jwt;
 
   if (!accessToken) {
-    throw new AuthenticationError("Please log in to access this page.", 401);
+    req.flash("error", "Please log in to access this page.");
+    return res.redirect("/login");
   }
 
   try {
@@ -50,23 +59,35 @@ exports.verify = asyncHandler(async (req, res, next) => {
     req.user = decodedPayload;
     next();
   } catch (error) {
-    throw new AuthenticationError("Your session has expired. Please log in again.");
+    req.flash("error", "Your session has expired. Please log in again.");
+    res.clearCookie("jwt");
+    return res.redirect("/login");
   }
 });
 
 exports.checkRole = (roles) => {
   return (req, res, next) => {
     if (!req.user) {
-      throw new AuthenticationError("Please log in to access this page.", 401);
+      req.flash("error", "Please log in to access this page.");
+      return res.redirect("/login");
     }
 
     if (!roles.includes(req.user.role)) {
-      return res.status(403).render("error", { message: "Access forbidden", error: { status: 403, stack: "" } });
+      req.flash("error", "You don't have permission to access this page.");
+      return res.redirect("/dashboard"); // Redirect to dashboard instead of showing error page
     }
     next();
   };
 };
 
 exports.logout = asyncHandler(async (req, res, next) => {
-  res.clearCookie("jwt").status(200).redirect("/");
+  try {
+    res.clearCookie("jwt");
+    req.flash("success", "You have been successfully logged out.");
+    res.redirect("/");
+  } catch (error) {
+    console.error("Logout error:", error);
+    req.flash("error", "An error occurred during logout.");
+    res.redirect("/");
+  }
 });

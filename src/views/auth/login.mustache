@@ -7,36 +7,31 @@
     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/css/style.css" rel="stylesheet" />
   </head>
-  <body class="container">
+  <body>
     {{> header }}
-
-    <h1>{{title}}</h1>
-    <div>{{message}}</div>
-    <form method="post" action="/login">
-      <div class="form-group">
-        {{user-name-error}}
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="example@email.com" required />
+      {{> flash}}
+    <main>
+      <div class="container-sm forms log-in justify-content-center">
+      <form method="post" action="/login">
+          <div class="form-group">
+            <p>{{user-name-error}}</p>
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" placeholder="user@email.com" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" minlength="8" required />
+          </div>
+          <div class="form-group p-3">
+            <input type="submit" value="Login" class="btn btn-styled" />
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          class="form-control"
-          id="password"
-          name="password"
-          placeholder="********"
-          minlength="8"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <input type="submit" value="Login" class="btn btn-primary" />
-      </div>
-    </form>
+    </main>
 
     {{> footer }}
 
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/alerts.js"></script>
   </body>
 </html>

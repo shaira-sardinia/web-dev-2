@@ -8,23 +8,149 @@
     <link href="/css/style.css" rel="stylesheet" />
   </head>
   <body>
-    {{#user}}
-        {{> authHeader }}
-    {{/user}}
-    {{^user}}
-       {{> header }}
-    {{/user}}
+    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}
 
-    <main class="container py-6">
-      <div class="row">
-        <div class="col-12">
-          <h1>Welcome to the Homepage</h1>
-          <p>This is the homepage content.</p>
+    <main>
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="3"
+            aria-label="Slide 4"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="/img/homepage-header.png" class="header-img d-block w-100" alt="Homepage Header" />
+          </div>
+          <div class="carousel-item">
+            <img src="/img/review-1.png" class="header-img d-block w-100" alt="First Client Feedback" />
+          </div>
+          <div class="carousel-item">
+            <img src="/img/review-2.png" class="header-img d-block w-100" alt="Second Client Feedback" />
+          </div>
+          <div class="carousel-item">
+            <img src="/img/review-3.png" class="header-img d-block w-100" alt="Third Client Feedback" />
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+      </div>
+
+      <div class="container-sm">
+        <p class="highlighted-text fs-1 mt-5">Welcome to your new sanctuary...</p>
+        <div class="col">
+          <div class="row my-5">
+            <p class="fs-4 pe-3 fw-lighter">
+              where the art of dance transcends the ordinary, evolving into a profound journey of self-discovery,
+              healing, and joyful expression. We believe that movement is not merely a physical activity, but a powerful
+              language of the soul, intricately connected to the well-being of our mind, body, and spirit. Our classes
+              and workshops are thoughtfully curated to cultivate this holistic connection, guiding you towards a
+              greater sense of inner harmony and vitality.
+            </p>
+          </div>
+          <div class="row my-4">
+            <div class="col-8">
+              <div class="border border-1 rounded p-4">
+                <p>
+                  Whether you're a seasoned dancer or taking your first steps, our inclusive and supportive environment
+                  invites you to explore your body's innate wisdom, release tension, and unlock your creative potential.
+                  At <span class="highlighted-text">Inspired Movement</span>, we go beyond the mechanics of technique,
+                  encouraging you to connect with your inner rhythm, enhance your body awareness, and experience the
+                  transformative, therapeutic power of dance.
+                </p>
+              </div>
+              <p class="ms-2 py-3"><a href="/offers" class="link-text fs-5">Check out some of our offers here → </a></p>
+              <div class="border border-1 rounded p-4">
+                <p>
+                  Our experienced and compassionate instructors are not only masters of their craft but also dedicated
+                  guides, committed to supporting you on your unique path of mindful movement, fostering a deeper
+                  understanding of yourself, and rediscovering the simple joy of moving freely.
+                </p>
+              </div>
+              <div>
+                <p class="ms-2 py-3"><a href="/team" class="link-text fs-5 my-5">Meet our Team → </a></p>
+                <div class="border border-1 rounded p-4">
+                  <p>
+                    Join our vibrant and growing community, and discover how movement can inspire, heal, and transform
+                    your life in ways you never imagined. We offer a variety of classes, workshops, and events designed
+                    to cater to diverse interests and levels, ensuring that everyone can find their perfect fit and
+                    embark on their own personal movement journey.
+                  </p>
+                  <p>
+                    We believe that dance is for everyone. Our studio provides a welcoming and inclusive community where
+                    individuals of all ages and abilities can explore the joy of movement, connect with their bodies,
+                    and express their authentic selves. Enjoy our spacious studios, completely accessible facilities,
+                    and state-of-the-art sound system
+                  </p>
+                </div>
+                <p class="ps-5 ms-5 mt-4"><a href="/register" class="link-text fs-2">Ready to join us?</a></p>
+              </div>
+            </div>
+            <div class="flex col-4 justify-self-center">
+              <img src="/img/stock/dance.jpg" class="img-fluid rounded-pill" alt="Picture of a person dancing" />
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-5 pt-5">
+          <div class="card justify-content-center">
+            <div class="card-body p-4 text-center">
+              <p class="m-0">Inspired Movement Studio</p>
+              <p class="m-0">123 Sagan Street, Anytown, UK AB1 2CD</p>
+            </div>
+          </div>
         </div>
       </div>
     </main>
 
-    {{> footer }}
+    {{> pageBreak }} {{> footer }}
 
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>

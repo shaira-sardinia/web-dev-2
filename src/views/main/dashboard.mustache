@@ -8,112 +8,149 @@
     <link href="/css/style.css" rel="stylesheet" />
   </head>
   <body>
-    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}
-
-    {{> flash}}
-
-    <main class="container py-6">
-      <div class="row">
-        <div class="col-12">
-          <h1>Welcome to your Dashboard, {{user}}</h1>
-        </div>
-
+    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}} {{> flash}}
+    <main>
+      <div>
         {{#flash.success}}
         <div class="alert alert-success">{{flash.success}}</div>
         {{/flash.success}} {{#flash.error}}
         <div class="alert alert-danger">{{flash.error}}</div>
         {{/flash.error}}
       </div>
+      <div class="mx-5">
+        <p class="highlighted-text fs-1 mt-5">Your Dashboard</p>
+      </div>
 
-      <div class="dashboard-section">
-        <h2>Available Classes</h2>
-        <div class="class-list">
-          {{#classes}}
-          <div class="class-card">
-            <h3>{{name}}</h3>
-            <p>{{description}}</p>
-            <p>Date: {{date}}</p>
-            <p>Time: {{time}}</p>
-            <p>Location: {{location}}</p>
-
-            {{#isEnrolled}}
-            <form action="/class/{{classId}}/unenroll" method="POST">
-              <button type="submit" class="btn btn-warning">Unenroll</button>
-            </form>
-            {{/isEnrolled}} {{^isEnrolled}}
-            <form action="/class/{{classId}}/enroll" method="POST">
-              <button type="submit" class="btn btn-primary">Enroll</button>
-            </form>
-            {{/isEnrolled}}
+      <div class="my-enrolments mx-5 p-2">
+        <p class="fs-4">My Enrolments</p>
+        <div class="classes mx-5 p-2">
+          <table class="table mx-auto table-responsive">
+            <thead>
+              <tr>
+                <th scope="col">Class</th>
+                <th scope="col">Date</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#enrolledClasses}}
+              <tr>
+                <td scope="row">{{name}}</td>
+                <td>{{schedule}}</td>
+                <td>
+                  <form action="/class/{{classId}}/unenroll" method="POST">
+                    <button type="submit" class="btn btn-clear btn-small">Unenroll</button>
+                  </form>
+                </td>
+              </tr>
+              {{/enrolledClasses}}
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center px-3">
+            {{^enrolledClasses}}
+            <p>You are not enrolled in any classes.</p>
+            {{/enrolledClasses}}
           </div>
-          {{/classes}} {{^classes}}
-          <p>No classes available at this time.</p>
-          {{/classes}}
+        </div>
+
+        <div class="workshops mx-5 p-2">
+          <table class="table mx-auto table-responsive">
+            <thead>
+              <tr>
+                <th scope="col">Workshop</th>
+                <th scope="col">No. of Sessions</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#enrolledWorkshops}}
+              <tr>
+                <td scope="row">{{name}}</td>
+                <td>{{numOfSessions}}</td>
+                <td>
+                  <form action="/workshop/{{courseId}}/unenroll" method="POST">
+                    <button type="submit" class="btn btn-clear btn-small">Unenroll</button>
+                  </form>
+                </td>
+              </tr>
+              {{/enrolledWorkshops}}
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center px-3">
+            {{^enrolledWorkshops}}
+            <p>You are not enrolled in any workshops.</p>
+            {{/enrolledWorkshops}}
+          </div>
         </div>
       </div>
 
-      <div class="dashboard-section">
-        <h2>Available Workshops</h2>
-        <div class="workshop-list">
-          {{#workshops}}
-          <div class="workshop-card">
-            <h3>{{name}}</h3>
-            <p>{{description}}</p>
-            <p>Date: {{date}}</p>
-            <p>Instructor: {{instructor}}</p>
+      {{> pageBreak }}
 
-            {{#isEnrolled}}
-            <form action="/workshop/{{courseId}}/unenroll" method="POST">
-              <button type="submit" class="btn btn-warning">Unenroll</button>
-            </form>
-            {{/isEnrolled}} {{^isEnrolled}}
-            <form action="/workshop/{{courseId}}/enroll" method="POST">
-              <button type="submit" class="btn btn-primary">Enroll</button>
-            </form>
-            {{/isEnrolled}}
+      <div class="px-3 py-5">
+        <div class="classes m-5 p-2">
+          <p class="fs-4">Available Classes</p>
+          <div class="card-group">
+            {{#classes}}
+            <div class="card mb-3" style="width: 18rem">
+              <div class="card-body">
+                <h3 class="card-title">{{name}}</h5>
+                <p class="card-text fs-6">{{description}}</p>  
+              </div>
+              <div class="d-flex justify-content-end m-4">
+                {{#isEnrolled}}
+                <form action="/class/{{classId}}/unenroll" method="POST">
+                  <button type="submit" class="btn btn-clear btn-sm">Unenroll</button>
+                </form>
+                {{/isEnrolled}} {{^isEnrolled}}
+                <form action="/class/{{classId}}/enroll" method="POST">
+                  <button type="submit" class="btn btn-styled btn-sm">Enroll</button>
+                </form>
+                {{/isEnrolled}}
+              </div>
+              <div class="card-footer">
+                <p class="card-text fs-6">Every {{schedule}} at <strong>£ {{price}}</strong></p>
+              </div>
+            </div>
+            {{/classes}}
           </div>
-          {{/workshops}} {{^workshops}}
-          <p>No workshops available at this time.</p>
-          {{/workshops}}
+          <div>
+            {{^classes}}
+            <p>No classes available at this time.</p>
+            {{/classes}}
+          </div>
         </div>
-      </div>
 
-      <h2>My Enrollments</h2>
-
-      <div>
-        <h3>Classes</h3>
-        <div class="enrolled-classes">
-          {{#enrolledClasses}}
-          <div class="enrolled-item">
-            <h4>{{name}}</h4>
-            <p>Date: {{date}}</p>
-            <p>Time: {{time}}</p>
-            <p>Location: {{location}}</p>
-            <form action="/class/{{classId}}/unenroll" method="POST">
-              <button type="submit" class="btn btn-sm btn-warning">Unenroll</button>
-            </form>
+        <div class="workshops m-5 p-2">
+          <p class="fs-4">Available Workshops</p>
+          <div class="card-group">
+            {{#workshops}}
+            <div class="card mb-3" style="width: 18rem">
+              <div class="card-body">
+                <h5 class="card-title">{{name}}</h5>
+                <p class="card-text fs-6">{{description}}</p>
+              </div>
+              <div class="d-flex justify-content-end m-4">
+                {{#isEnrolled}}
+                <form action="/workshop/{{courseId}}/unenroll" method="POST">
+                  <button type="submit" class="btn btn-clear btn-sm">Unenroll</button>
+                </form>
+                {{/isEnrolled}} {{^isEnrolled}}
+                <form action="/workshop/{{courseId}}/enroll" method="POST">
+                  <button type="submit" class="btn btn-styled btn-sm">Enroll</button>
+                </form>
+                {{/isEnrolled}}
+              </div>
+              <div class="card-footer">
+                <p class="card-text fs-6">{{numOfSessions}} sessions at <strong>£ {{price}}</strong></p>
+              </div>
+            </div>
+            {{/workshops}}
           </div>
-          {{/enrolledClasses}} {{^enrolledClasses}}
-          <p>You are not enrolled in any classes.</p>
-          {{/enrolledClasses}}
-        </div>
-      </div>
-
-      <div>
-        <h3>Workshops</h3>
-        <div class="enrolled-workshops">
-          {{#enrolledWorkshops}}
-          <div class="enrolled-item">
-            <h4>{{name}}</h4>
-            <p>Date: {{date}}</p>
-            <p>Instructor: {{instructor}}</p>
-            <form action="/workshop/{{courseId}}/unenroll" method="POST">
-              <button type="submit" class="btn btn-sm btn-warning">Unenroll</button>
-            </form>
+          <div>
+            {{^workshops}}
+            <p>No workshops available at this time.</p>
+            {{/workshops}}
           </div>
-          {{/enrolledWorkshops}} {{^enrolledWorkshops}}
-          <p>You are not enrolled in any workshops.</p>
-          {{/enrolledWorkshops}}
         </div>
       </div>
     </main>
@@ -121,5 +158,6 @@
     {{> footer }}
 
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/alerts.js"></script>  
   </body>
 </html>

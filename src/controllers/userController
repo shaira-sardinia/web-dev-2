@@ -6,7 +6,6 @@ const workshopController = require("./workshopController");
 const classController = require("./classController");
 const organiserController = require("./organiserController");
 const enrolmentService = require("../utils/services/enrolmentService");
-const { verify } = require("../auth/authController");
 
 const userModel = new userDAO();
 
@@ -21,9 +20,23 @@ exports.show_register_page = asyncHandler(async (req, res, next) => {
 
 exports.post_new_user = [
   asyncHandler(async (req, res, next) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    await userModel.addUser(req.body.email, hashedPassword, req.body.name, req.body.phone, req.body.address);
-    res.redirect("/login?registered=true");
+    try {
+      const existingUser = await userModel.findUser(req.body.email);
+      if (existingUser) {
+        req.flash("error", "Email already registered. Please use a different email or login.");
+        return res.redirect("/register");
+      }
+
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      await userModel.addUser(req.body.email, hashedPassword, req.body.name, req.body.phone, req.body.address);
+
+      req.flash("success", "Registration successful! You can now log in.");
+      res.redirect("/login");
+    } catch (error) {
+      console.error("Registration error:", error);
+      req.flash("error", "Failed to register. Please try again.");
+      res.redirect("/register");
+    }
   }),
 ];
 

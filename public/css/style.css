@@ -1,0 +1,136 @@
+/* @font-face {
+  font-family: "catchymager";
+  src: url("catchy-mager-webfont.woff2") format("woff2"), url("catchy-mager-webfont.woff") format("woff"),
+    url("catchyMager.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+} */
+
+p {
+  margin-bottom: 10px;
+}
+
+.header-logo {
+  height: 100px;
+  width: auto;
+}
+
+.nav-link {
+  color: var(--link-color);
+  text-align: center;
+}
+.nav-link:hover {
+  color: var(--link-hover-color);
+}
+
+.footer {
+  margin: 30px 10px;
+}
+
+.carousel-item {
+  transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+}
+
+.carousel-inner {
+  max-height: 730px;
+}
+
+.header-img {
+  max-height: 100%;
+  align-items: center;
+}
+
+.highlighted-text {
+  /* font-family: "catchymager", serif; */
+  color: var(--secondary-color);
+  font-weight: 100;
+}
+
+.link-text {
+  font-weight: 300;
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.link-text {
+  font-weight: 300;
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+.breadcrumb-text {
+  color: #757575;
+  text-decoration: underline;
+  font-size: small;
+  margin-left: 20px;
+}
+
+.btn-styled {
+  --bs-btn-color: #ffffff;
+  --bs-btn-bg: #ff5722;
+  --bs-btn-border-color: #ff5722;
+  --bs-btn-hover-color: #ff5722;
+  --bs-btn-hover-bg: #fff5f1;
+  --bs-btn-hover-border-color: #ff5722;
+}
+
+.btn-clear {
+  --bs-btn-color: #ff5722;
+  --bs-btn-bg: #ffffff;
+  --bs-btn-border-color: #ff5722;
+  --bs-btn-hover-color: #ff5722;
+  --bs-btn-hover-bg: #ff5722;
+  --bs-btn-hover-border-color: #ff5722;
+}
+
+.forms {
+  max-width: 50rem;
+  margin-top: 8rem;
+}
+
+.accordion {
+  --bs-accordion-active-color: #212121;
+  --bs-accordion-active-bg: #ffffff;
+}
+
+.table {
+}
+
+.bio-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.page-break {
+  max-width: 50%;
+  max-height: 150px;
+}
+
+.floating-alert {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1050;
+  max-width: 50rem;
+  padding: 15px;
+  margin: 0;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+.floating-alert.fade {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+.floating-alert.show {
+  opacity: 1;
+}
+
+:root {
+  --primary-color: #212121;
+  --secondary-color: #ff5722;
+  --link-color: #5d4037;
+  --link-hover-color: #795548;
+}

@@ -10,26 +10,40 @@
   <body>
     {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}
 
-    <main class="container py-6">
-      <div class="row">
-        <div class="col-12">
-          <h1>{{title}}</h1>
-          {{#organisers}}
-            <div class="organiser">
-                <h3>Meet {{name}} !</h3>
-                <p>{{bio}}</p>
-
-                {{#isAdmin}}
-                <p>Email: {{email}}</p>
-                <p>Phone: {{phone}}</p>
-                {{/isAdmin}} 
+    <main>
+      <div class="p-5 mx-3">
+        <div class="container-sm">
+          <p class="highlighted-text fs-1 mt-5">Meet the Team</p>
+          <div class="p-6">
+            At the heart of Inspired Movement is our passionate and dedicated team of instructors, each bringing a
+            unique blend of expertise and a shared commitment to holistic well-being through dance.
+          </div>
+          <p class="my-4">Get to know the wonderful individuals who guide our classes and workshops...</p>
+          <div class="row row-cols-1 row-cols-md-2 g-5 p-5">
+            {{#organisers}}
+            <div class="col">
+              <div class="card">
+                <img src="/img/stock/organiser.jpg" class="card-img-top" alt="Person's photo" />
+                <div class="card-body">
+                  <h5 class="card-title">{{name}}</h5>
+                  <p class="card-text">{{bio}}</p>
+                  {{#isAdmin}}
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><span class="highlighted-text">Contact Details</span></li>
+                    <li class="list-group-item">{{email}}</li>
+                    <li class="list-group-item">{{phone}}</li>
+                  </ul>
+                  {{/isAdmin}}
+                </div>
+              </div>
+            </div>
             {{/organisers}}
           </div>
         </div>
       </div>
     </main>
 
-    {{> footer }}
+    {{> pageBreak }} {{> footer }}
 
     <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>

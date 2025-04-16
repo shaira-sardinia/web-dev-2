@@ -3,13 +3,6 @@ const dbService = require("../utils/services/dbService");
 const { DatabaseError, ThrowError } = require("../utils/errors/customError");
 
 const enrolmentDb = dbService.getEnrolmentDb();
-const classDb = dbService.getClassDb();
-const workshopDb = dbService.getWorkshopDb();
-
-//debugging
-console.log("EnrolmentDB initialized:", enrolmentDb !== undefined);
-console.log("ClassDB initialized:", classDb !== undefined);
-console.log("WorkshopDB initialized:", workshopDb !== undefined);
 
 class EnrolmentModel {
   createClassEnrolment(userId, classId) {
@@ -17,7 +10,6 @@ class EnrolmentModel {
       const isEnrolled = await this.checkClassEnrolment(userId, classId);
       if (isEnrolled) {
         return reject(new ThrowError(`User is already enrolled in this class`));
-        //add alert here
       }
 
       const entry = {
@@ -31,7 +23,6 @@ class EnrolmentModel {
       enrolmentDb.insert(entry, (err, newEnrolment) => {
         if (err) {
           return reject(new DatabaseError("Failed to enroll in class.", 500, {}));
-          //add alert here
         }
         resolve(newEnrolment);
       });

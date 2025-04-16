@@ -1,27 +1,33 @@
-<div>
-  <ul class="nav justify-content-end">
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="/">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link active" aria-current="page" href="/about">About</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/offers">Start Dancing</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/team">Team</a>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"
-        >Join Us</a
-      >
-      <ul class="dropdown-menu">
-        {{^user}}
-        <li><a id="login" href="/login" class="dropdown-item" href="#">Login</a></li>
-        <li><a id="login" href="/register" class="dropdown-item" href="#"> Register</a></li>
-        {{/user}}
+<div class="header container-fluid shadow">
+  <div class="row">
+    <div class="col-12 col-md-auto text-center text-md-start mb-2 mb-md-0">
+      <a class="nav-link active header-links" aria-current="page" href="/">
+        <img src="/img/logo.jpg" class="header-logo" alt="Inspired Movement Logo" />
+      </a>
+    </div>
+    <div class="col-12 col-md d-flex justify-content-center justify-content-md-end">
+      <ul class="nav flex-column align-items-center flex-md-row px-4">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/offers">Start Dancing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/team">Team</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
+            Join Us
+          </a>
+          <ul class="dropdown-menu">
+            {{^user}}
+            <li><a id="login" href="/login" class="dropdown-item">Login</a></li>
+            <li><a id="login" href="/register" class="dropdown-item"> Register</a></li>
+            {{/user}}
+          </ul>
+        </li>
       </ul>
-    </li>
-  </ul>
+    </div>
+  </div>
 </div>

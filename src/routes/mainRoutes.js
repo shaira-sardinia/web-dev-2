@@ -5,8 +5,6 @@ const organiserController = require("../controllers/organiserController");
 
 router.get("/", mainController.homepage);
 
-router.get("/about", mainController.about);
-
 router.get("/offers", mainController.offers);
 
 router.get("/team", mainController.team);

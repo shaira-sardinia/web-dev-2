@@ -1,7 +1,6 @@
 const dbService = require("./src/utils/services/dbService");
 const express = require("express");
 const path = require("path");
-const public = path.join(__dirname, "public");
 const bodyParser = require("body-parser");
 const mainRouter = require("./src/routes/mainRoutes");
 const adminRouter = require("./src/routes/adminRoutes");

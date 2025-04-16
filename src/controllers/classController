@@ -29,7 +29,6 @@ exports.post_class_entry = [
       res.redirect("/dashboard");
     } catch (error) {}
     req.flash("error", "Failed to add class. Please try again.");
-    res.redirect("/class/new");
   }),
 ];
 
@@ -88,7 +87,6 @@ exports.update_class = [
       res.redirect("/dashboard");
     } catch (error) {
       req.flash("error", "Failed to update class. Please try again.");
-      res.redirect(`/classes/edit/${classId}`);
     }
   }),
 ];

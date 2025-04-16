@@ -1,52 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{title}}</title>
-    <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/style.css" rel="stylesheet" />
-  </head>
-  <body>
-    {{#user}} {{> authHeader }} {{/user}} {{^user}} {{> header }} {{/user}}
-
-    <div class="container">
-      <div class="row mb-3">
-        <div class="col-12">
-          <h2 class="mb-3">{{#workshopDetails}} Enrollments for {{name}} {{/workshopDetails}}</h2>
-          {{#workshopDetails}}
-          <p class="text-muted">{{description}}</p>
-          {{/workshopDetails}}
-        </div>
-      </div>
-      <div class="row mb-4">
-        <div class="card-body">
-          {{#enrolments.length}}
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Enrolled User</th>
-                <th>Enrolled At</th>
-              </tr>
-            </thead>
-            <tbody>
-              {{#enrolments}}
-              <tr>
-                <td>{{userName}}</td>
-                <td>{{enrolledAt}}</td>
-              </tr>
-              {{/enrolments}}
-            </tbody>
-          </table>
-          <p>Total Enrolments: {{enrolments.length}}</p>
-          {{/enrolments.length}} {{^enrolments.length}}
-          <p>No users are currently enrolled in this class.</p>
-          {{/enrolments.length}}
-        </div>
-      </div>
-    </div>
-
-    {{> footer }}
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+{{#success_msg}}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{.}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/success_msg}} {{#error_msg}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{.}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/error_msg}} {{#info_msg}}
+<div class="alert alert-light alert-dismissible fade show" role="alert">
+  {{.}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/info_msg}}

@@ -1,14 +1,11 @@
 const { application, response } = require("express");
 const organiserDAO = require("../models/organiserModel");
-const classesDAO = require("../models/classModel");
 const asyncHandler = require("express-async-handler");
 const { validateOrganiser } = require("../utils/middlewares/validation");
 const { handleValidationErrors } = require("../utils/errors/validationError");
 
 const organiserModel = new organiserDAO();
-const classModel = new classesDAO();
 
-/* Organiser */
 exports.load_organisers = asyncHandler(async () => {
   const list = await organiserModel.getAllOrganisers();
   return list;
@@ -28,7 +25,6 @@ exports.post_organiser_entry = [
       res.redirect("/dashboard");
     } catch (error) {
       req.flash("error", "Failed to add Organiser. Please try again.");
-      res.redirect("/organiser/new");
     }
   }),
 ];
@@ -76,18 +72,6 @@ exports.update_organiser = [
       res.redirect("/dashboard");
     } catch (error) {
       req.flash("error", "Failed to update Organiser. Please try again.");
-      res.redirect(`/workshop/edit/${courseId}`);
     }
   }),
 ];
-
-// exports.get_organiser_classes = asyncHandler(async (req, res) => {
-//   const orgId = req.params.orgId;
-//   const classes = await classModel.getClassesByOrganiser(orgId);
-//   const organiser = await organiserModel.findOrganiser(orgId);
-
-//   res.render("organiser-profile", {
-//     classes,
-//     organiser,
-//   });
-// });
