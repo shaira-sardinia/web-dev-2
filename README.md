@@ -13,7 +13,7 @@ https://inspired-movement.onrender.com/
 
 ## 🩰 Project Description
 
-The "Inspired Movement" web application aims to provide a platform for a local dance organization to manage their various offerings. The organization runs diverse dance classes catering to users of different fitness levels and abilities. This application seeks to streamline the management of these workshops and user enrollments.
+The web application aims to provide a platform for a local dance organisation to manage their various offerings. The organisation runs diverse dance classes catering to users of different fitness levels and abilities. This application seeks to streamline the management of these workshops and user enrollments.
 
 <br>
 
