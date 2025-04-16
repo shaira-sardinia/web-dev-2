@@ -6,6 +6,11 @@ This project focuses on building a website for a local dance organization to man
 
 <br>
 
+## ⛓️ Deployment
+https://inspired-movement.onrender.com/
+
+<br>
+
 ## 🩰 Project Description
 
 The "Inspired Movement" web application aims to provide a platform for a local dance organization to manage their various offerings. The organization runs diverse dance classes catering to users of different fitness levels and abilities. This application seeks to streamline the management of these workshops and user enrollments.
