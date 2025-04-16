@@ -1,4 +1,5 @@
 const dbService = require("./src/utils/services/dbService");
+const databaseInitService = require("./src/utils/services/databaseInit");
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -53,7 +54,18 @@ app.use("/", userRoutes);
 app.use("/", enrolmentRoutes);
 app.use(errorRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+async function startServer() {
+  try {
+    await databaseInitService.initializeDatabase();
+
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start", error);
+    process.exit(1);
+  }
+}
+
+startServer();
