@@ -1,3 +1,1 @@
-{"userId":"e581bf6f-c996-4d75-8dc6-bf3327fd139f","email":"test@user.org","password":"$2b$10$alHrcu7HZKwc0etkkb0wKeRzDQlm9w9F52uI76IbhaYlFi29uN6G.","name":"Test","phone":999,"address":"Test","role":"user","_id":"E5wsib2L2uE6G2LZ"}
 {"orgId":"c30a80f8-20f6-4c18-a391-6ef496146fde","email":"admin@inspired-movement.com","password":"$2b$10$P0DjmMScyKF7kMR1ktnG8e5xTX89Np257EGlSQ75VhvuuEH7zIcuS","name":"Administrator","phone":"000000000","address":"Admin Office","role":"admin","_id":"Uohq6ZRs5bPmbnvM"}
-{"$$deleted":true,"_id":"E5wsib2L2uE6G2LZ"}
