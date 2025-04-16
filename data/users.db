@@ -1,2 +1,3 @@
 {"orgId":"c30a80f8-20f6-4c18-a391-6ef496146fde","email":"admin@inspired-movement.com","password":"$2b$10$P0DjmMScyKF7kMR1ktnG8e5xTX89Np257EGlSQ75VhvuuEH7zIcuS","name":"Administrator","phone":"000000000","address":"Admin Office","role":"admin","_id":"Uohq6ZRs5bPmbnvM"}
-{"userId":"cee6f094-02cd-4eda-ac3a-75fd889c8dac","email":"andrew@org.com","password":"$2b$10$0FjmyfZrl9jeARgKjvg1s.lE.RSsPyqj9pYJONY/ERDy.jL/BN566","name":"Andrew","phone":null,"address":"65 Turing Road Anywhere, UK","role":"user","_id":"r0IHUIWtyEZCfVl7"}
+{"userId":"cee6f094-02cd-4eda-ac3a-75fd889c8dac","email":"andrew@user.com","password":"$2b$10$0FjmyfZrl9jeARgKjvg1s.lE.RSsPyqj9pYJONY/ERDy.jL/BN566","name":"Andrew","phone":null,"address":"65 Turing Road Anywhere, UK","role":"user","_id":"r0IHUIWtyEZCfVl7"}
+{"$$deleted":true,"_id":"r0IHUIWtyEZCfVl7"}
