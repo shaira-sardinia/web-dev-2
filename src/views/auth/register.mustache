@@ -8,55 +8,59 @@
     <link href="/css/style.css" rel="stylesheet" />
   </head>
   <body>
-    {{> header }}
-        {{> flash}}
+    {{> header }} {{> flash}}
     <main>
-      <div class="container-sm mt-5 pt-3 log-in justify-content-center">
-        <form method="post" action="/register">
-          <div class="form-group">
-            {{user-name-error}}
-            <label for="email">Email Address</label>
-            <input type="text" class="form-control" id="email" name="email" placeholder="user@email.com" required />
-          </div>
-          <div class="form-group pt-2">
-            <label for="password">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              name="password"
-              placeholder="Enter minimum 8 characters"
-              minlength="8"
-              required
-            />
-            <div id="passwordHelpBlock" class="form-text">
-              Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces,
-              special characters, or emoji.
+      <div class="flex px-5 mx-2 justify-content-center">
+        <div class="container">
+          <p class="highlighted-text fs-1 mt-5">Register</p>
+          <form method="post" action="/register">
+            <div class="form-group">
+              {{user-name-error}}
+              <label for="email">Email Address</label>
+              <input type="text" class="form-control" id="email" name="email" placeholder="user@email.com" required />
             </div>
-          </div>
-          <div class="form-group">
-            <div class="form-group pt-1">
-              {{name-error}}
-              <label for="username">Full Name</label>
-              <input type="text" class="form-control" id="name" name="name" required />
+            <div class="form-group pt-2">
+              <label for="password">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Enter minimum 8 characters"
+                minlength="8"
+                required
+              />
+              <div id="passwordHelpBlock" class="form-text">
+                Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces,
+                special characters, or emoji.
+              </div>
             </div>
+            <div class="form-group">
+              <div class="form-group pt-1">
+                {{name-error}}
+                <label for="username">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" required />
+              </div>
 
-            <div class="form-group pt-1">
-              {{phone-error}}
-              <label for="username">Phone Number</label>
-              <input type="text" class="form-control" id="phone" name="phone" placeholder="" required />
-            </div>
+              <div class="form-group pt-1">
+                {{phone-error}}
+                <label for="username">Phone Number</label>
+                <input type="text" class="form-control" id="phone" name="phone" placeholder="" required />
+              </div>
 
-            <div class="form-group pt-1">
-              {{address-error}}
-              <label for="username">Full Address</label>
-              <textarea class="form-control" id="address" name="address"></textarea>
+              <div class="form-group pt-1">
+                {{address-error}}
+                <label for="username">Full Address</label>
+                <textarea class="form-control" id="address" name="address"></textarea>
+              </div>
+              <div class="d-flex justify-content-center pt-4">
+                <div class="form-group pt-4 pb-5">
+                  <input type="submit" value="Register" class="btn btn-primary btn-styled" />
+                </div>
+              </div>
             </div>
-            <div class="form-group pt-4 pb-5">
-              <input type="submit" value="Register" class="btn btn-styled" />
-            </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </main>
 
