@@ -1,4 +1,3 @@
-// test/system/user-workflows.test.js
 const request = require("supertest");
 const app = require("../../index");
 const dbService = require("../../src/utils/services/dbService");
@@ -212,7 +211,7 @@ describe("User Workflows", () => {
 
       expect(response.statusCode).toBe(200);
       expect(response.text).toContain("Enrolments for");
-      expect(response.text).toContain("Test User"); // The enrolled user name
+      expect(response.text).toContain("Test User");
     });
   });
 

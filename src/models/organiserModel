@@ -3,7 +3,6 @@ const dbService = require("../utils/services/dbService");
 const { DatabaseError } = require("../utils/errors/customError");
 
 const organiserDb = dbService.getOrganiserDb();
-// dbService.seedOrganisers();
 
 class OrganiserModel {
   getAllOrganisers() {

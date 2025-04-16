@@ -4,7 +4,6 @@ const { DatabaseError } = require("../utils/errors/customError");
 
 const classDb = dbService.getClassDb();
 const organiserDb = dbService.getOrganiserDb();
-// dbService.seedClasses();
 
 class ClassModel {
   getAllClasses() {

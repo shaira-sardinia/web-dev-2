@@ -1,1 +1,2 @@
 {"orgId":"c30a80f8-20f6-4c18-a391-6ef496146fde","email":"admin@inspired-movement.com","password":"$2b$10$P0DjmMScyKF7kMR1ktnG8e5xTX89Np257EGlSQ75VhvuuEH7zIcuS","name":"Administrator","phone":"000000000","address":"Admin Office","role":"admin","_id":"Uohq6ZRs5bPmbnvM"}
+{"userId":"c113ea34-61db-4c97-a1e9-608bbe76c8d0","email":"test@user.com","password":"$2b$10$76xGZh1.a3vQpeJXzPV1qOU0Cse3uGkSWErzdtNW2E0l9jVUAYTHy","name":"Test User","phone":999000,"address":"Test","role":"user","_id":"rimVXUA1RUabbBBz"}

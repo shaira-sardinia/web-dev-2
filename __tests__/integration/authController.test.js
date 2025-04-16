@@ -1,4 +1,3 @@
-// Path: __tests__/unit/authController.test.js
 const authController = require("../../src/auth/authController");
 const UserModel = require("../../src/models/userModel");
 const bcrypt = require("bcrypt");
@@ -188,7 +187,7 @@ describe("AuthController", () => {
     });
 
     test("should handle missing JWT cookie", async () => {
-      req.cookies = {}; // No JWT cookie
+      req.cookies = {};
 
       await authController.verify(req, res, next);
 
