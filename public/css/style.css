@@ -43,7 +43,10 @@ p {
 .highlighted-text {
   font-family: "catchymager", serif;
   color: var(--secondary-color);
-  font-weight: 100;
+}
+
+.styled-text {
+  font-family: "catchymager", serif;
 }
 
 .link-text {

@@ -2,7 +2,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 const userDAO = require("../models/userModel");
-const { AuthenticationError } = require("../utils/errors/customError");
 
 const userModel = new userDAO();
 
@@ -74,7 +73,7 @@ exports.checkRole = (roles) => {
 
     if (!roles.includes(req.user.role)) {
       req.flash("error", "You don't have permission to access this page.");
-      return res.redirect("/dashboard"); // Redirect to dashboard instead of showing error page
+      return res.redirect("/dashboard");
     }
     next();
   };

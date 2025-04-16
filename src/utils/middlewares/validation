@@ -3,7 +3,7 @@ const { body, validationResult } = require("express-validator");
 const validateWorkshop = [
   body("name").trim().notEmpty(),
   body("description").trim().notEmpty(),
-  body("numOfSessions").trim().notEmpty(),
+  body("numOfSessions").trim().notEmpty().isInt({ min: 1 }),
   body("price").trim().notEmpty().toFloat(),
 ];
 
@@ -17,15 +17,27 @@ const validateClass = [
 const validateOrganiser = [
   body("name").trim().notEmpty(),
   body("email").trim().notEmpty(),
-  body("phone").trim().notEmpty().toFloat(),
+  body("phone")
+    .trim()
+    .notEmpty()
+    .matches(/^\d{6,15}$/)
+    .blacklist(/\D/g),
   body("bio").trim().notEmpty(),
 ];
 
 const validateUser = [
   body("email").trim().notEmpty(),
-  body("password").trim().notEmpty(),
+  body("password")
+    .trim()
+    .notEmpty()
+    .isLength({ min: 8 })
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/),
   body("name").trim().notEmpty(),
-  body("phone").trim().notEmpty().toFloat(),
+  body("phone")
+    .trim()
+    .notEmpty()
+    .matches(/^\d{6,15}$/)
+    .blacklist(/\D/g),
   body("address").trim().notEmpty(),
 ];
 

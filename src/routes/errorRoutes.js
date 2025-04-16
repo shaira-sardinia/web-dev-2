@@ -2,6 +2,12 @@ const express = require("express");
 const router = express.Router();
 const { ThrowError } = require("../utils/errors/customError");
 
+/* 404 handler */
+router.use((req, res, next) => {
+  const error = new ThrowError(`Page not found`, 404);
+  next(error);
+});
+
 // Global Error Handling
 router.use(function (err, req, res, next) {
   console.error("--- ERROR START ---");
@@ -31,12 +37,6 @@ router.use(function (err, req, res, next) {
   if (statusCode === 404) {
     return res.status(404).render("errors/404");
   }
-
-  /* 404 handler */
-  router.use((req, res, next) => {
-    const error = new ThrowError(`Page not found`, 404);
-    next(error);
-  });
 
   /* All other errors */
   res.status(statusCode).render("errors/error", {

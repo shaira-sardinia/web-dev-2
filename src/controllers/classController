@@ -8,7 +8,6 @@ const { handleValidationErrors } = require("../utils/errors/validationError");
 const classModel = new classesDAO();
 const organiserModel = new organiserDAO();
 
-/* Classes */
 exports.load_classes = asyncHandler(async () => {
   const list = await classModel.getAllClasses();
   return list;
