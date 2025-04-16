@@ -1,10 +1,10 @@
-/* @font-face {
+@font-face {
   font-family: "catchymager";
   src: url("catchy-mager-webfont.woff2") format("woff2"), url("catchy-mager-webfont.woff") format("woff"),
     url("catchyMager.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
-} */
+}
 
 p {
   margin-bottom: 10px;
@@ -41,7 +41,7 @@ p {
 }
 
 .highlighted-text {
-  /* font-family: "catchymager", serif; */
+  font-family: "catchymager", serif;
   color: var(--secondary-color);
   font-weight: 100;
 }
