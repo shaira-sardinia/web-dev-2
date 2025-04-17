@@ -1,2 +1,6 @@
 {"enrolmentId":"c2ba0383-0e90-4671-a748-d55eabd09da4","userId":"0d75e7f4-c014-4168-9d4e-f2f97dac9709","type":"Workshop","courseId":"97cbc417-b741-4d06-a699-8f09265d72df","enrolledAt":{"$$date":1744841590931},"_id":"H6P2ZUhEI7nMG5i2"}
 {"enrolmentId":"926adfa6-641a-43e9-8404-1a33acbeb62a","userId":"0d75e7f4-c014-4168-9d4e-f2f97dac9709","type":"Class","classId":"276cd60e-9407-4d1e-a7ce-bac55ab8ec8a","enrolledAt":{"$$date":1744841579416},"_id":"l8kEndzhRGZcBpif"}
+{"enrolmentId":"4333a257-b186-4470-bdfa-544ccacb6706","userId":"c113ea34-61db-4c97-a1e9-608bbe76c8d0","type":"Class","classId":"b2b5166f-b912-4313-824c-13ca01bd72e9","enrolledAt":{"$$date":1744848822760},"_id":"WcyJtJH40VUNvVlh"}
+{"enrolmentId":"7c9835b0-1eca-418a-a351-046d03eaadc5","userId":"c113ea34-61db-4c97-a1e9-608bbe76c8d0","type":"Workshop","courseId":"e03d0d8f-c073-4734-83c1-e1a473b00173","enrolledAt":{"$$date":1744848825792},"_id":"f3ZMNMookzKtifw5"}
+{"enrolmentId":"fe3f17e9-bcdf-4793-b3a1-bdca6b5528e8","userId":"c113ea34-61db-4c97-a1e9-608bbe76c8d0","type":"Class","classId":"6d212277-39b5-4ac0-9e12-24fec8da3d61","enrolledAt":{"$$date":1744848827214},"_id":"VjpT4gs7P13mud8t"}
+{"$$deleted":true,"_id":"VjpT4gs7P13mud8t"}
